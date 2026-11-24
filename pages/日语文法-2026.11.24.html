@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日语文法手账 · 2026.11.24（4个核心文法）</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 日式手账感字体：Noto Sans JP / Noto Sans SC / Zen Maru Gothic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans SC"', '"Noto Sans JP"', 'Inter', 'system-ui', 'sans-serif'],
+            jp: ['"Noto Sans JP"', '"Noto Sans SC"', 'sans-serif'],
+            maru: ['"Zen Maru Gothic"', '"Noto Sans SC"', 'sans-serif'],
+          },
+          colors: {
+            paper: '#FAF7F2',
+            ink: '#2D2A26',
+            muted: '#6E675F',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* 日式方格/点阵手账纸张背景 */
+    body {
+      background-color: #FAF7F2;
+      background-image: radial-gradient(#E2DACD 1px, transparent 1px);
+      background-size: 22px 22px;
+      color: #2D2A26;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Ruby 振假名排版优化 */
+    ruby {
+      ruby-align: center;
+      ruby-position: over;
+    }
+    rt {
+      font-size: 0.62em;
+      color: #78716C;
+      font-weight: 400;
+      user-select: none;
+      transition: opacity 0.2s ease;
+    }
+    #bedtime-review rt {
+      color: #A7B6D2;
+    }
+    .grammar-section h2 rt {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* 隐藏假名开关生效时 */
+    body.hide-furigana rt {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    /* 目标文法主题高亮（自动随章节配色） */
+    .hl-theme {
+      font-weight: 700;
+      padding: 0 4px;
+      border-radius: 5px;
+    }
+    [data-theme="indigo"] .hl-theme {
+      background-color: #E0E7FF;
+      color: #312E81;
+    }
+    [data-theme="emerald"] .hl-theme {
+      background-color: #D1FAE5;
+      color: #064E3B;
+    }
+    [data-theme="orange"] .hl-theme {
+      background-color: #FFEDD5;
+      color: #7C2D12;
+    }
+    [data-theme="purple"] .hl-theme {
+      background-color: #F3E8FF;
+      color: #581C87;
+    }
+    .hl-contrast {
+      background-color: #CCFBF1;
+      color: #115E59;
+      font-weight: 700;
+      padding: 0 4px;
+      border-radius: 5px;
+    }
+    #bedtime-review .hl-theme {
+      background: linear-gradient(transparent 62%, rgba(252, 211, 77, 0.32) 62%);
+      color: #FDE68A;
+      padding: 0 2px;
+    }
+
+    /* 隐藏中文翻译开关生效时（支持点击/悬停偷看） */
+    body.hide-translation .translation-text {
+      filter: blur(6px);
+      opacity: 0.38;
+      cursor: pointer;
+      transition: filter 0.22s ease, opacity 0.22s ease;
+      user-select: none;
+    }
+    body.hide-translation .translation-text:hover,
+    body.hide-translation .translation-text.peeked {
+      filter: blur(0);
+      opacity: 1;
+    }
+
+    /* 滚动跳转时保留清爽顶部间距 */
+    section[id] {
+      scroll-margin-top: 24px;
+    }
+
+    /* 手账柔和纸张阴影 */
+    .journal-card {
+      box-shadow: 0 4px 20px -2px rgba(92, 76, 56, 0.07), 0 1px 3px rgba(92, 76, 56, 0.05);
+    }
+
+    /* 整卡点击发音交互态（极简小圆点与声波反馈） */
+    .playable-card {
+      transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease;
+    }
+    .playable-card:active {
+      transform: scale(0.992);
+    }
+    .playable-card.loading {
+      border-color: #FCD34D !important;
+      background-color: #FFFDF5 !important;
+    }
+    .playable-card.playing {
+      border-color: #F59E0B !important;
+      border-style: solid !important;
+      background-color: #FFFBEB !important;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.16), 0 4px 16px -2px rgba(245, 158, 11, 0.14);
+    }
+
+    /* 夜间模式下的卡片加载与播放态 */
+    #bedtime-review .playable-card.loading {
+      border-color: rgba(252, 211, 77, 0.5) !important;
+      background-color: rgba(252, 211, 77, 0.08) !important;
+    }
+    #bedtime-review .playable-card.playing {
+      border-color: rgba(252, 211, 77, 0.72) !important;
+      background-color: rgba(252, 211, 77, 0.15) !important;
+      box-shadow: 0 0 0 2px rgba(252, 211, 77, 0.24);
+    }
+
+    /* 极简小圆点指示器：待机圆点 → 加载呼吸点 → 播放声波 */
+    .idle-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background-color: rgba(217, 119, 6, 0.32);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    .playable-card:hover .idle-dot {
+      background-color: rgba(217, 119, 6, 0.72);
+      transform: scale(1.22);
+    }
+    #bedtime-review .idle-dot {
+      background-color: rgba(252, 211, 77, 0.38);
+    }
+    #bedtime-review .playable-card:hover .idle-dot {
+      background-color: rgba(252, 211, 77, 0.85);
+    }
+
+    .loading-dots {
+      display: none;
+      align-items: center;
+      gap: 3px;
+    }
+    .loading-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 9999px;
+      background-color: #D97706;
+      animation: dotPulse 0.9s ease-in-out infinite;
+    }
+    #bedtime-review .loading-dot {
+      background-color: #FCD34D;
+    }
+    .loading-dot:nth-child(2) { animation-delay: 0.15s; }
+    .loading-dot:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes dotPulse {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1.25); }
+    }
+
+    .wave-bars {
+      display: none;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 14px;
+    }
+    .wave-bar {
+      display: inline-block;
+      width: 3px;
+      border-radius: 999px;
+      background-color: #D97706;
+      animation: soundWave 0.72s ease-in-out infinite;
+    }
+    #bedtime-review .wave-bar {
+      background-color: #FCD34D;
+    }
+    .wave-bar:nth-child(1) { height: 6px; animation-delay: 0s; }
+    .wave-bar:nth-child(2) { height: 13px; animation-delay: 0.16s; }
+    .wave-bar:nth-child(3) { height: 8px; animation-delay: 0.32s; }
+
+    @keyframes soundWave {
+      0%, 100% { transform: scaleY(0.45); }
+      50% { transform: scaleY(1.15); }
+    }
+
+    .playable-card.loading .idle-dot,
+    .playable-card.playing .idle-dot {
+      display: none;
+    }
+    .playable-card.loading .loading-dots {
+      display: inline-flex;
+    }
+    .playable-card.playing .wave-bars {
+      display: inline-flex;
+    }
+
+    /* 弹窗试听加载转圈动画 */
+    @keyframes ttsSpin {
+      to { transform: rotate(360deg); }
+    }
+    .tts-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 999px;
+      animation: ttsSpin 0.7s linear infinite;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-amber-200/70">
+
+  <!-- =========================================================
+       顶部手账封面页眉
+  ========================================================== -->
+  <header class="max-w-4xl mx-auto px-4 pt-6 pb-4 sm:pt-8">
+    <div class="bg-white/90 backdrop-blur-sm border border-stone-200/80 rounded-3xl p-5 sm:p-7 journal-card relative overflow-hidden">
+      <!-- 装饰性手账纸胶带 -->
+      <div class="absolute -top-2 right-8 w-20 h-6 bg-amber-200/70 rotate-3 rounded-sm pointer-events-none"></div>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-2.5">
+            <a href="../index.html" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-stone-100/90 hover:bg-amber-50 border border-stone-200/80 text-stone-600 hover:text-amber-800 text-xs font-medium transition">← 返回手账目录</a>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/80 text-amber-800 text-xs font-medium">
+              <span>📓 日语文法每日手账</span>
+              <span class="text-amber-400">•</span>
+              <span>N2 / N3 核心精讲</span>
+            </div>
+          </div>
+          <h1 class="font-maru text-2xl sm:text-3xl font-bold text-stone-800 tracking-tight">
+            日语文法手账 · 2026.11.24<span class="text-stone-400 font-normal text-lg sm:text-xl ml-1.5">（4个核心文法）</span>
+          </h1>
+          <p class="font-jp text-xs sm:text-sm font-medium text-amber-800/85 mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+            <span class="inline-block">〜から〜にかけて</span><span class="text-amber-400/80 select-none">／</span><span class="inline-block">〜がち</span><span class="text-amber-400/80 select-none">／</span><span class="inline-block">〜かける・〜かけ</span><span class="text-amber-400/80 select-none">／</span><span class="inline-block">〜おそれがある</span>
+          </p>
+          <p class="text-sm text-stone-500 mt-1">
+            大致起止范围、消极反复倾向、动作未完成与正式风险预警——完整收录原笔记例句、高频辨析、日常口语与睡前复习。
+          </p>
+        </div>
+        <!-- 语音引擎状态小标签 -->
+        <button id="voice-status" type="button" onclick="openVoiceModal()"
+          class="self-start sm:self-end inline-flex items-center gap-1.5 text-xs text-stone-600 bg-stone-100/90 hover:bg-amber-50 px-3 py-1.5 rounded-xl border border-stone-200/70 transition shrink-0">
+          <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+          <span>🐟 FishAudio 代理已就绪</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       全局学习控制卡片（随页面正常滚动，不吸顶遮挡）
+  ========================================================== -->
+  <section aria-label="全局学习控制" class="max-w-4xl mx-auto px-4 pt-1 pb-1">
+    <div class="bg-white/90 backdrop-blur-sm border border-stone-200/80 rounded-3xl p-4 sm:px-6 sm:py-4 journal-card flex flex-wrap items-center justify-between gap-2">
+      <div class="flex flex-wrap items-center gap-2">
+        <!-- 语速切换 -->
+        <button id="btn-speed" type="button"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-[#FAF7F2] border border-stone-200 text-stone-700 hover:bg-stone-100 active:scale-95 transition">
+          <span>🔊</span>
+          <span id="speed-label">正常 1.0x</span>
+        </button>
+
+        <!-- 假名注音开关 -->
+        <button id="btn-furigana" type="button" aria-pressed="true"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-indigo-50 border border-indigo-200 text-indigo-700 hover:bg-indigo-100/70 active:scale-95 transition">
+          <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+          <span>假名注音：开</span>
+        </button>
+
+        <!-- 中文翻译开关 -->
+        <button id="btn-translation" type="button" aria-pressed="true"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100/70 active:scale-95 transition">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>中文翻译：开</span>
+        </button>
+
+        <!-- 语音设置与引擎切换入口 -->
+        <button id="btn-voice-settings" type="button" onclick="openVoiceModal()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-amber-50 border border-amber-200 text-amber-800 hover:bg-amber-100/80 active:scale-95 transition">
+          <span>⚙️ 语音设置</span>
+          <span id="engine-badge" class="px-1.5 py-0.5 rounded-md bg-amber-100/90 border border-amber-300 text-[11px] font-bold text-amber-900">🐟 FishAudio</span>
+        </button>
+      </div>
+
+      <!-- 停止当前朗读按钮（仅播放时显现） -->
+      <button id="btn-stop-all" type="button"
+        class="hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-rose-50 border border-rose-200 text-rose-700 hover:bg-rose-100 active:scale-95 transition">
+        <span>⏹</span>
+        <span>停止朗读</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       主内容区：4 个文法卡片 + 睡前复习模块
+  ========================================================== -->
+  <main class="max-w-4xl mx-auto px-4 py-6 sm:py-8 space-y-8">
+    
+    <!-- 文法 1：〜から〜にかけて（主题色：indigo） -->
+    <section id="grammar-1" data-theme="indigo" class="grammar-section bg-white rounded-3xl border border-indigo-100 journal-card overflow-hidden">
+      <div class="bg-gradient-to-r from-indigo-600 to-indigo-500 px-5 py-4 sm:px-7 sm:py-5 text-white">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center font-maru font-bold text-lg shrink-0">01</span>
+            <div>
+              <h2 class="font-maru text-xl sm:text-2xl font-bold tracking-wide">〜から〜にかけて</h2>
+              <p class="text-indigo-100 text-xs sm:text-sm mt-0.5">从 A 到 B 一带（大致的时间区间或空间范围）</p>
+            </div>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-white/15 text-xs font-medium">大致范围 · 时间区间 · 空间地带</span>
+        </div>
+      </div>
+
+      <div class="p-5 sm:p-7 space-y-6">
+        <!-- 接续公式 -->
+        <div class="bg-indigo-50/70 border-indigo-200/70 border rounded-2xl p-4">
+          <div class="text-xs font-bold uppercase tracking-wider text-indigo-600 mb-1.5">📐 接续公式</div>
+          <p class="font-jp text-sm sm:text-base font-bold text-stone-800 leading-relaxed">
+            名詞 A ＋ <span class="text-indigo-700 bg-indigo-100 px-1.5 py-0.5 rounded">から</span> ＋ 名詞 B ＋ <span class="text-indigo-700 underline decoration-indigo-300 decoration-2 underline-offset-4">にかけて</span>
+          </p>
+          <p class="text-xs sm:text-sm text-indigo-800/80 mt-2">💡 提示：既可用于时间（<span class="font-jp">春から夏にかけて</span>），也可用于空间地带（<span class="font-jp">関東から東北にかけて</span>），强调边界大致、不要求精确到分秒。</p>
+        </div>
+
+        <!-- 延伸用法与避坑辨析 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-indigo-500"></span>
+            <span>延伸用法与避坑辨析</span>
+          </h3>
+          <div class="grid grid-cols-1 gap-3 text-sm leading-relaxed text-stone-700">
+            <div class="bg-stone-50 rounded-2xl p-3.5 border border-stone-200/70">
+<div class="font-bold text-indigo-700 mb-1">1. 核心语感：大致范围覆盖</div>
+<p>表示时间或空间上的<strong>大致跨度</strong>，常与天气变化、自然现象、季节性活动或持续存在的状态搭配（开花、下雨、地震、忙碌期等），不一定每一刻都连续不间断。</p>
+</div>
+<div class="bg-stone-50 rounded-2xl p-3.5 border border-stone-200/70">
+<div class="font-bold text-indigo-700 mb-1">2. 高频辨析：〜から〜にかけて vs 〜から〜まで</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1.5"><div class="bg-white p-2.5 rounded-xl border border-stone-200/70"><strong class="font-jp text-indigo-800">〜から〜にかけて</strong>：起止边界<strong>较模糊的大致范围</strong>（<span class="font-jp">今夜から明朝にかけて</span> 今晚到明早一带）。</div><div class="bg-white p-2.5 rounded-xl border border-stone-200/70"><strong class="font-jp text-teal-800">〜から〜まで</strong>：起止边界<strong>明确具体</strong>，常用于时刻表、营业时间、精确起点终点（<span class="font-jp">10時から8時まで</span>）。</div></div>
+</div>
+<div class="bg-rose-50/60 rounded-2xl p-3.5 border border-rose-200/70">
+<div class="font-bold text-rose-700 mb-1">3. 避坑提醒</div>
+<p>表达营业时间、会议时段等<strong>明确起止时间</strong>时，不能用 <span class="line-through text-stone-400 font-jp">9時から5時にかけて</span>，必须优先用 <strong class="text-rose-700 font-jp">〜から〜まで</strong>。</p>
+</div>
+          </div>
+        </div>
+        
+        <!-- 核心词组 / 对比小卡 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-indigo-500"></span>
+            <span>高频对比小卡（点击小卡即可发音）</span>
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            
+            <div id="g1-phrase-0" role="button" tabindex="0"
+              data-text="春から夏にかけて"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击词组卡片播放日语发音"
+              class="playable-card group cursor-pointer select-none text-left bg-indigo-50/65 hover:bg-indigo-100/70 border-indigo-200/90 border rounded-2xl p-3.5 transition duration-200">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md bg-indigo-200/75 text-indigo-800">大致范围</span>
+                  <div class="jp-speech-target font-jp text-lg font-bold text-stone-800 mt-1.5 leading-[1.9]"><ruby>春<rt>はる</rt></ruby><span class="hl-theme">から</span><ruby>夏<rt>なつ</rt></ruby><span class="hl-theme">にかけて</span></div>
+                </div>
+                <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true"><span class="idle-dot"></span><span class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></span><span class="wave-bars"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></span></div>
+              </div>
+              <div class="translation-text text-xs text-stone-600 mt-1" onclick="handleTranslationClick(event, this)">从春天到夏天这一段 · 模糊范围</div>
+            </div>
+            <div id="g1-phrase-1" role="button" tabindex="0"
+              data-text="9時から5時まで"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击词组卡片播放日语发音"
+              class="playable-card group cursor-pointer select-none text-left bg-teal-50/60 hover:bg-teal-100/60 border-dashed border-teal-200/90 border rounded-2xl p-3.5 transition duration-200">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md bg-teal-100 text-teal-800">明确起止 · 对比</span>
+                  <div class="jp-speech-target font-jp text-lg font-bold text-stone-800 mt-1.5 leading-[1.9]">9<ruby>時<rt>じ</rt></ruby><span class="hl-contrast">から</span>5<ruby>時<rt>じ</rt></ruby><span class="hl-contrast">まで</span></div>
+                </div>
+                <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true"><span class="idle-dot"></span><span class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></span><span class="wave-bars"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></span></div>
+              </div>
+              <div class="translation-text text-xs text-stone-600 mt-1" onclick="handleTranslationClick(event, this)">9点到5点 · 精确时段</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 例句列表 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-indigo-500"></span>
+            <span>精选例句（点击任意卡片即可发音）</span>
+          </h3>
+          <div class="space-y-3" id="examples-g1"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 文法 2：〜がち（主题色：emerald） -->
+    <section id="grammar-2" data-theme="emerald" class="grammar-section bg-white rounded-3xl border border-emerald-100 journal-card overflow-hidden">
+      <div class="bg-gradient-to-r from-emerald-600 to-teal-600 px-5 py-4 sm:px-7 sm:py-5 text-white">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center font-maru font-bold text-lg shrink-0">02</span>
+            <div>
+              <h2 class="font-maru text-xl sm:text-2xl font-bold tracking-wide">〜がち</h2>
+              <p class="text-emerald-100 text-xs sm:text-sm mt-0.5">经常……；容易……（反复发生的不良倾向）</p>
+            </div>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-white/15 text-xs font-medium">不良倾向 · 反复发生 · 辨析やすい</span>
+        </div>
+      </div>
+
+      <div class="p-5 sm:p-7 space-y-6">
+        <!-- 接续公式 -->
+        <div class="bg-emerald-50/70 border-emerald-200/70 border rounded-2xl p-4">
+          <div class="text-xs font-bold uppercase tracking-wider text-emerald-700 mb-1.5">📐 接续公式</div>
+          <p class="font-jp text-sm sm:text-base font-bold text-stone-800 leading-relaxed">
+            動詞ます形（去ます）／ 名詞 ＋ <span class="text-emerald-700 underline decoration-emerald-300 decoration-2 underline-offset-4">がち（だ・な・に）</span>
+          </p>
+          <p class="text-xs sm:text-sm text-emerald-900/80 mt-2">💡 提示：可作な形容词使用：结句用 <code class="bg-white/80 px-1.5 py-0.5 rounded border border-emerald-200 font-jp">〜がちだ</code>，修饰名词用 <code class="bg-white/80 px-1.5 py-0.5 rounded border border-emerald-200 font-jp">〜がちな＋名詞</code>（如 <span class="font-jp">曇りがちな天気</span>）。</p>
+        </div>
+
+        <!-- 延伸用法与避坑辨析 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-emerald-600"></span>
+            <span>延伸用法与避坑辨析</span>
+          </h3>
+          <div class="grid grid-cols-1 gap-3 text-sm leading-relaxed text-stone-700">
+            <div class="bg-stone-50 rounded-2xl p-3.5 border border-stone-200/70">
+<div class="font-bold text-emerald-700 mb-1">1. 核心语感：消极的反复倾向</div>
+<p>表示某种<strong>不太好的状态或行为反复出现</strong>，带有“动不动就…… / 往往容易……”的消极倾向（忘事、生病、迟到、营养不均、偷懒、阴天等）。</p>
+</div>
+<div class="bg-stone-50 rounded-2xl p-3.5 border border-stone-200/70">
+<div class="font-bold text-emerald-700 mb-1">2. 高频辨析：〜がち vs 〜やすい</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1.5"><div class="bg-white p-2.5 rounded-xl border border-stone-200/70"><strong class="font-jp text-emerald-800">〜がち</strong>：接动词ます形或名词，强调<strong>反复出现的不良倾向</strong>（<span class="font-jp">病気がち / 忘れがち</span>）。</div><div class="bg-white p-2.5 rounded-xl border border-stone-200/70"><strong class="font-jp text-teal-800">〜やすい</strong>：只接动词ます形，强调事物本身的<strong>客观性质容易……</strong>，好坏皆可（<span class="font-jp">書きやすい / 壊れやすい</span>）。</div></div>
+</div>
+<div class="bg-emerald-50/60 border-emerald-200/70 rounded-2xl p-3.5 border">
+<div class="font-bold text-emerald-800 mb-1">3. 高频搭配</div>
+<p><span class="font-jp"><span class="bg-white px-2 py-0.5 rounded border border-emerald-200 font-medium">遅れがち</span>（经常迟到）、<span class="bg-white px-2 py-0.5 rounded border border-emerald-200 font-medium">不足しがち</span>（容易不足）、<span class="bg-white px-2 py-0.5 rounded border border-emerald-200 font-medium">曇りがち</span>（多云/常阴天）。</span></p>
+</div>
+          </div>
+        </div>
+        
+        <!-- 核心词组 / 对比小卡 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-emerald-600"></span>
+            <span>高频对比小卡（点击小卡即可发音）</span>
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            
+            <div id="g2-phrase-0" role="button" tabindex="0"
+              data-text="忘れがちだ"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击词组卡片播放日语发音"
+              class="playable-card group cursor-pointer select-none text-left bg-emerald-50/65 hover:bg-emerald-100/70 border-emerald-200/90 border rounded-2xl p-3.5 transition duration-200">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-200/75 text-emerald-800">动词倾向</span>
+                  <div class="jp-speech-target font-jp text-lg font-bold text-stone-800 mt-1.5 leading-[1.9]"><ruby>忘<rt>わす</rt></ruby>れ<span class="hl-theme">がちだ</span></div>
+                </div>
+                <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true"><span class="idle-dot"></span><span class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></span><span class="wave-bars"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></span></div>
+              </div>
+              <div class="translation-text text-xs text-stone-600 mt-1" onclick="handleTranslationClick(event, this)">经常忘事 · 消极倾向</div>
+            </div>
+            <div id="g2-phrase-1" role="button" tabindex="0"
+              data-text="病気がちだ"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击词组卡片播放日语发音"
+              class="playable-card group cursor-pointer select-none text-left bg-emerald-50/65 hover:bg-emerald-100/70 border-emerald-200/90 border rounded-2xl p-3.5 transition duration-200">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-200/75 text-emerald-800">名词倾向</span>
+                  <div class="jp-speech-target font-jp text-lg font-bold text-stone-800 mt-1.5 leading-[1.9]"><ruby>病気<rt>びょうき</rt></ruby><span class="hl-theme">がちだ</span></div>
+                </div>
+                <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true"><span class="idle-dot"></span><span class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></span><span class="wave-bars"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></span></div>
+              </div>
+              <div class="translation-text text-xs text-stone-600 mt-1" onclick="handleTranslationClick(event, this)">经常生病 · 名词直连</div>
+            </div>
+            <div id="g2-phrase-2" role="button" tabindex="0"
+              data-text="書きやすい"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击词组卡片播放日语发音"
+              class="playable-card group cursor-pointer select-none text-left bg-teal-50/60 hover:bg-teal-100/60 border-dashed border-teal-200/90 border rounded-2xl p-3.5 transition duration-200">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md bg-teal-100 text-teal-800">客观性质 · 对比</span>
+                  <div class="jp-speech-target font-jp text-lg font-bold text-stone-800 mt-1.5 leading-[1.9]"><ruby>書<rt>か</rt></ruby>き<span class="hl-contrast">やすい</span></div>
+                </div>
+                <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true"><span class="idle-dot"></span><span class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></span><span class="wave-bars"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></span></div>
+              </div>
+              <div class="translation-text text-xs text-stone-600 mt-1" onclick="handleTranslationClick(event, this)">很好写 · 强调性质</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 例句列表 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-emerald-600"></span>
+            <span>精选例句（点击任意卡片即可发音）</span>
+          </h3>
+          <div class="space-y-3" id="examples-g2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 文法 3：〜かける・〜かけ（主题色：orange） -->
+    <section id="grammar-3" data-theme="orange" class="grammar-section bg-white rounded-3xl border border-orange-100 journal-card overflow-hidden">
+      <div class="bg-gradient-to-r from-orange-500 to-amber-500 px-5 py-4 sm:px-7 sm:py-5 text-white">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center font-maru font-bold text-lg shrink-0">03</span>
+            <div>
+              <h2 class="font-maru text-xl sm:text-2xl font-bold tracking-wide">〜かける・〜かけ</h2>
+              <p class="text-orange-50 text-xs sm:text-sm mt-0.5">做到一半尚未完成；刚要开始；差点发生某结果</p>
+            </div>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-white/15 text-xs font-medium">未完成 · 刚要开始 · 差点发生</span>
+        </div>
+      </div>
+
+      <div class="p-5 sm:p-7 space-y-6">
+        <!-- 接续公式 -->
+        <div class="bg-orange-50/70 border-orange-200/70 border rounded-2xl p-4">
+          <div class="text-xs font-bold uppercase tracking-wider text-orange-700 mb-1.5">📐 接续公式</div>
+          <p class="font-jp text-sm sm:text-base font-bold text-stone-800 leading-relaxed">
+            動詞ます形（去ます）＋ <span class="text-orange-700 underline decoration-orange-300 decoration-2 underline-offset-4">かける ／ かけている ／ かけの ＋ 名詞</span>
+          </p>
+          <p class="text-xs sm:text-sm text-orange-900/80 mt-2">💡 提示：核心画面是「动作已经启动或临近临界点，但还没走到终点」。</p>
+        </div>
+
+        <!-- 延伸用法与避坑辨析 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-orange-500"></span>
+            <span>延伸用法与避坑辨析</span>
+          </h3>
+          <div class="grid grid-cols-1 gap-3 text-sm leading-relaxed text-stone-700">
+            <div class="bg-stone-50 rounded-2xl p-3.5 border border-stone-200/70">
+<div class="font-bold text-orange-700 mb-1">1. 三大语感一眼分清</div>
+<ul class="space-y-1 ml-1"><li>• <strong>做到一半未完成</strong>：常用 <code class="text-orange-700 bg-orange-50 px-1 rounded">〜かけの＋名詞</code>（<span class="font-jp text-stone-900">読みかけの本</span> 读到一半的书、<span class="font-jp text-stone-900">飲みかけのコーヒー</span> 喝到一半的咖啡）。</li><li>• <strong>刚要开始却停住</strong>：常用 <code class="text-orange-700 bg-orange-50 px-1 rounded">〜かけてやめる</code>（<span class="font-jp text-stone-900">何か言いかけてやめた</span> 刚想说什么又止住了）。</li><li>• <strong>差点发生（临近结果）</strong>：多接非意志/变化动词过去式 <code class="text-orange-700 bg-orange-50 px-1 rounded">〜かけた</code>（<span class="font-jp text-stone-900">転びかけた</span> 差点跌倒、<span class="font-jp text-stone-900">諦めかけた</span> 差点放弃）。</li></ul>
+</div>
+<div class="bg-stone-50 rounded-2xl p-3.5 border border-stone-200/70">
+<div class="font-bold text-orange-700 mb-1">2. 形态搭配差异</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1.5"><div class="bg-white p-2.5 rounded-xl border border-stone-200/70"><strong class="font-jp text-orange-800">〜かけの＋名詞 / 〜かけだ</strong>：把“做到一半”的状态名词化，描述物体或事情停在半途。</div><div class="bg-white p-2.5 rounded-xl border border-stone-200/70"><strong class="font-jp text-orange-800">〜かける / 〜かけている</strong>：作为复合动词，描述动作刚起头、正在发生但未结束，或差点导致某结果。</div></div>
+</div>
+<div class="bg-orange-50/60 border-orange-200/70 rounded-2xl p-3.5 border">
+<div class="font-bold text-orange-800 mb-1">3. 延伸高频表达</div>
+<p><span class="font-jp"><span class="bg-white px-2 py-0.5 rounded border border-orange-200 font-medium">食べかけ</span>（吃了一半）、<span class="bg-white px-2 py-0.5 rounded border border-orange-200 font-medium">やりかけの仕事</span>（干到一半的工作）、<span class="bg-white px-2 py-0.5 rounded border border-orange-200 font-medium">日が沈みかけている</span>（太阳快落山了）。</span></p>
+</div>
+          </div>
+        </div>
+        
+        <!-- 核心词组 / 对比小卡 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-orange-500"></span>
+            <span>三大语感对比小卡（点击小卡即可发音）</span>
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            
+            <div id="g3-phrase-0" role="button" tabindex="0"
+              data-text="読みかけの本"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击词组卡片播放日语发音"
+              class="playable-card group cursor-pointer select-none text-left bg-orange-50/65 hover:bg-orange-100/70 border-orange-200/90 border rounded-2xl p-3.5 transition duration-200">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md bg-orange-200/75 text-orange-800">未完成 · 名词修饰</span>
+                  <div class="jp-speech-target font-jp text-lg font-bold text-stone-800 mt-1.5 leading-[1.9]"><ruby>読<rt>よ</rt></ruby>み<span class="hl-theme">かけの</span><ruby>本<rt>ほん</rt></ruby></div>
+                </div>
+                <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true"><span class="idle-dot"></span><span class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></span><span class="wave-bars"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></span></div>
+              </div>
+              <div class="translation-text text-xs text-stone-600 mt-1" onclick="handleTranslationClick(event, this)">读到一半的书</div>
+            </div>
+            <div id="g3-phrase-1" role="button" tabindex="0"
+              data-text="言いかけてやめた"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击词组卡片播放日语发音"
+              class="playable-card group cursor-pointer select-none text-left bg-orange-50/65 hover:bg-orange-100/70 border-orange-200/90 border rounded-2xl p-3.5 transition duration-200">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md bg-orange-200/75 text-orange-800">刚起头就中断</span>
+                  <div class="jp-speech-target font-jp text-lg font-bold text-stone-800 mt-1.5 leading-[1.9]"><ruby>言<rt>い</rt></ruby>い<span class="hl-theme">かけて</span>やめた</div>
+                </div>
+                <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true"><span class="idle-dot"></span><span class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></span><span class="wave-bars"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></span></div>
+              </div>
+              <div class="translation-text text-xs text-stone-600 mt-1" onclick="handleTranslationClick(event, this)">刚想说又停下了</div>
+            </div>
+            <div id="g3-phrase-2" role="button" tabindex="0"
+              data-text="転びかけた"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击词组卡片播放日语发音"
+              class="playable-card group cursor-pointer select-none text-left bg-orange-50/65 hover:bg-orange-100/70 border-orange-200/90 border rounded-2xl p-3.5 transition duration-200">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md bg-orange-200/75 text-orange-800">接近结果 · 差点</span>
+                  <div class="jp-speech-target font-jp text-lg font-bold text-stone-800 mt-1.5 leading-[1.9]"><ruby>転<rt>ころ</rt></ruby>び<span class="hl-theme">かけた</span></div>
+                </div>
+                <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true"><span class="idle-dot"></span><span class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></span><span class="wave-bars"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></span></div>
+              </div>
+              <div class="translation-text text-xs text-stone-600 mt-1" onclick="handleTranslationClick(event, this)">差点跌倒</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 例句列表 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-orange-500"></span>
+            <span>精选例句（点击任意卡片即可发音）</span>
+          </h3>
+          <div class="space-y-3" id="examples-g3"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 文法 4：〜おそれがある（主题色：purple） -->
+    <section id="grammar-4" data-theme="purple" class="grammar-section bg-white rounded-3xl border border-purple-100 journal-card overflow-hidden">
+      <div class="bg-gradient-to-r from-purple-600 to-violet-500 px-5 py-4 sm:px-7 sm:py-5 text-white">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center font-maru font-bold text-lg shrink-0">04</span>
+            <div>
+              <h2 class="font-maru text-xl sm:text-2xl font-bold tracking-wide">〜おそれがある</h2>
+              <p class="text-purple-100 text-xs sm:text-sm mt-0.5">有……的风险；恐怕会……（正式的负面预警）</p>
+            </div>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-white/15 text-xs font-medium">负面风险 · 正式书面 · 辨析かもしれない</span>
+        </div>
+      </div>
+
+      <div class="p-5 sm:p-7 space-y-6">
+        <!-- 接续公式 -->
+        <div class="bg-purple-50/70 border-purple-200/70 border rounded-2xl p-4">
+          <div class="text-xs font-bold uppercase tracking-wider text-purple-700 mb-1.5">📐 接续公式</div>
+          <p class="font-jp text-sm sm:text-base font-bold text-stone-800 leading-relaxed">
+            動詞<span class="text-purple-700 bg-purple-100 px-1.5 py-0.5 rounded">辞书形・ない形</span> ＋ <span class="text-purple-700 underline decoration-purple-300 decoration-2 underline-offset-4">おそれがある</span> ／ 名詞 ＋ <span class="text-purple-700 bg-purple-100 px-1.5 py-0.5 rounded">の</span><span class="text-purple-700 underline decoration-purple-300 decoration-2 underline-offset-4">おそれがある</span>
+          </p>
+          <p class="text-xs sm:text-sm text-purple-900/80 mt-2">💡 提示：汉字可写作 <code class="bg-white/80 px-1.5 py-0.5 rounded border border-purple-200 font-jp">恐れがある</code>；否定形 <code class="bg-white/80 px-1.5 py-0.5 rounded border border-purple-200 font-jp">〜おそれはない</code> 表示“没有……的风险”。</p>
+        </div>
+
+        <!-- 延伸用法与避坑辨析 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-purple-600"></span>
+            <span>延伸用法与避坑辨析</span>
+          </h3>
+          <div class="grid grid-cols-1 gap-3 text-sm leading-relaxed text-stone-700">
+            <div class="bg-stone-50 rounded-2xl p-3.5 border border-stone-200/70">
+<div class="font-bold text-purple-700 mb-1">1. 核心语感：正式场合的负面风险</div>
+<p>常用于新闻播报、防灾通知、商务风险提示等<strong>较正式的语境</strong>，客观提示存在某种令人担忧的危险或坏结果（火灾、海啸、延期、信息泄露等）。</p>
+</div>
+<div class="bg-stone-50 rounded-2xl p-3.5 border border-stone-200/70">
+<div class="font-bold text-purple-700 mb-1">2. 高频辨析：〜おそれがある vs 〜かもしれない</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1.5"><div class="bg-white p-2.5 rounded-xl border border-stone-200/70"><strong class="font-jp text-purple-800">〜おそれがある</strong>：偏正式/书面，<strong>仅限负面风险</strong>（<span class="font-jp">火災のおそれがある</span>）。</div><div class="bg-white p-2.5 rounded-xl border border-stone-200/70"><strong class="font-jp text-teal-800">〜かもしれない</strong>：口语书面通用，<strong>中性推测，好坏皆可</strong>（<span class="font-jp">明日は晴れるかもしれない</span>）。</div></div>
+</div>
+<div class="bg-rose-50/60 rounded-2xl p-3.5 border border-rose-200/70">
+<div class="font-bold text-rose-700 mb-1">3. 避坑提醒（绝不接好事）</div>
+<p>不能用于积极或令人期待的事情！例如不能说 <span class="line-through text-stone-400 font-jp">合格するおそれがある</span> ✗；且接名词时记得加 <strong class="text-rose-700 font-jp">の</strong>（<span class="font-jp">火災のおそれがある</span>）。</p>
+</div>
+          </div>
+        </div>
+        
+        <!-- 核心词组 / 对比小卡 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-purple-600"></span>
+            <span>高频对比小卡（点击小卡即可发音）</span>
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            
+            <div id="g4-phrase-0" role="button" tabindex="0"
+              data-text="火災のおそれがある"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击词组卡片播放日语发音"
+              class="playable-card group cursor-pointer select-none text-left bg-purple-50/65 hover:bg-purple-100/70 border-purple-200/90 border rounded-2xl p-3.5 transition duration-200">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md bg-purple-200/75 text-purple-800">负面风险</span>
+                  <div class="jp-speech-target font-jp text-lg font-bold text-stone-800 mt-1.5 leading-[1.9]"><ruby>火災<rt>かさい</rt></ruby>の<span class="hl-theme">おそれがある</span></div>
+                </div>
+                <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true"><span class="idle-dot"></span><span class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></span><span class="wave-bars"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></span></div>
+              </div>
+              <div class="translation-text text-xs text-stone-600 mt-1" onclick="handleTranslationClick(event, this)">有火灾风险 · 正式预警</div>
+            </div>
+            <div id="g4-phrase-1" role="button" tabindex="0"
+              data-text="津波のおそれはない"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击词组卡片播放日语发音"
+              class="playable-card group cursor-pointer select-none text-left bg-purple-50/65 hover:bg-purple-100/70 border-purple-200/90 border rounded-2xl p-3.5 transition duration-200">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md bg-purple-200/75 text-purple-800">无风险 · 否定</span>
+                  <div class="jp-speech-target font-jp text-lg font-bold text-stone-800 mt-1.5 leading-[1.9]"><ruby>津波<rt>つなみ</rt></ruby>の<span class="hl-theme">おそれはない</span></div>
+                </div>
+                <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true"><span class="idle-dot"></span><span class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></span><span class="wave-bars"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></span></div>
+              </div>
+              <div class="translation-text text-xs text-stone-600 mt-1" onclick="handleTranslationClick(event, this)">没有海啸风险</div>
+            </div>
+            <div id="g4-phrase-2" role="button" tabindex="0"
+              data-text="晴れるかもしれない"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击词组卡片播放日语发音"
+              class="playable-card group cursor-pointer select-none text-left bg-teal-50/60 hover:bg-teal-100/60 border-dashed border-teal-200/90 border rounded-2xl p-3.5 transition duration-200">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <span class="inline-block text-[11px] font-bold px-2 py-0.5 rounded-md bg-teal-100 text-teal-800">中性推测 · 对比</span>
+                  <div class="jp-speech-target font-jp text-lg font-bold text-stone-800 mt-1.5 leading-[1.9]"><ruby>晴<rt>は</rt></ruby>れる<span class="hl-contrast">かもしれない</span></div>
+                </div>
+                <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true"><span class="idle-dot"></span><span class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></span><span class="wave-bars"><span class="wave-bar"></span><span class="wave-bar"></span><span class="wave-bar"></span></span></div>
+              </div>
+              <div class="translation-text text-xs text-stone-600 mt-1" onclick="handleTranslationClick(event, this)">也许会放晴 · 好坏皆可</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 例句列表 -->
+        <div>
+          <h3 class="font-maru text-base font-bold text-stone-800 flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-5 rounded-full bg-purple-600"></span>
+            <span>精选例句（点击任意卡片即可发音）</span>
+          </h3>
+          <div class="space-y-3" id="examples-g4"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         🌙 睡前复习专属模块（柔和夜间护眼深蓝 + 暖米卡片）
+    ======================================================== -->
+    <section id="bedtime-review" class="rounded-3xl bg-gradient-to-br from-[#1E293B] via-[#23314A] to-[#1A2438] text-stone-100 p-5 sm:p-8 shadow-xl border border-slate-700/80 space-y-8">
+      <!-- 标题 -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700/80 pb-5">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-300/15 border border-amber-300/30 text-amber-200 text-xs font-medium mb-2">
+            <span>🌙 睡前黄金记忆 3 分钟</span>
+          </div>
+          <h2 class="font-maru text-2xl sm:text-3xl font-bold text-amber-50">睡前复习小笔记</h2>
+          <p class="text-slate-300 text-sm mt-1">睡前快速过一遍口诀、做4道小题、听一遍核心例句，让大脑在睡眠中自动巩固。</p>
+        </div>
+      </div>
+
+      <!-- ① 一句话秒记口诀 -->
+      <div>
+        <h3 class="font-maru text-lg font-bold text-amber-200 mb-3 flex items-center gap-2">
+          <span>✨</span><span>① 一句话秒记口诀</span>
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          
+          <div class="bg-[#FAF7F2] text-stone-800 rounded-2xl p-4 border-l-4 border-indigo-500">
+            <div class="font-jp font-bold text-indigo-700 text-base">① 〜から〜にかけて</div>
+            <p class="text-sm mt-1 leading-relaxed">大致跨度“从A到B一带”，精确起止时间换「まで」。<span class="text-xs text-stone-500 block mt-1">📌 锚点：时间空间皆可用（<strong class="font-jp text-indigo-700">春から夏にかけて / 今夜から明朝にかけて</strong>）</span></p>
+          </div>
+          <div class="bg-[#FAF7F2] text-stone-800 rounded-2xl p-4 border-l-4 border-emerald-500">
+            <div class="font-jp font-bold text-emerald-700 text-base">② 〜がち</div>
+            <p class="text-sm mt-1 leading-relaxed">动不动就犯的不良老毛病，客观性质才用「やすい」。<span class="text-xs text-stone-500 block mt-1">📌 锚点：动词去ます或名词直连（<strong class="font-jp text-emerald-700">忘れがちだ / 病気がちだ</strong>）</span></p>
+          </div>
+          <div class="bg-[#FAF7F2] text-stone-800 rounded-2xl p-4 border-l-4 border-orange-500">
+            <div class="font-jp font-bold text-orange-700 text-base">③ 〜かける・〜かけ</div>
+            <p class="text-sm mt-1 leading-relaxed">停在半途没做完，刚要开口或差点就发生！<span class="text-xs text-stone-500 block mt-1">📌 锚点：修饰名词用 <strong class="font-jp text-orange-700">〜かけの</strong>（読みかけの本 / 転びかけた）</span></p>
+          </div>
+          <div class="bg-[#FAF7F2] text-stone-800 rounded-2xl p-4 border-l-4 border-purple-500">
+            <div class="font-jp font-bold text-purple-700 text-base">④ 〜おそれがある</div>
+            <p class="text-sm mt-1 leading-relaxed">正式预警“有坏风险”，好坏中性推测换「かもしれない」。<span class="text-xs text-stone-500 block mt-1">📌 锚点：名词加 <strong class="font-jp text-purple-700">の</strong>（火災のおそれがある / 津波のおそれはない）</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ② 接续与易错点速查表 -->
+      <div>
+        <h3 class="font-maru text-lg font-bold text-amber-200 mb-3 flex items-center gap-2">
+          <span>📋</span><span>② 接续与易错点速查表</span>
+        </h3>
+        <div class="overflow-x-auto rounded-2xl border border-slate-700 bg-slate-800/70">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse min-w-[540px]">
+            <thead>
+              <tr class="bg-slate-900/70 text-amber-200 border-b border-slate-700">
+                <th class="py-3 px-4 font-bold">文法</th>
+                <th class="py-3 px-4 font-bold">核心接续</th>
+                <th class="py-3 px-4 font-bold">最大避坑点</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700/70 text-slate-200">
+              
+              <tr class="hover:bg-slate-700/30">
+                <td class="py-3 px-4 font-jp font-bold text-indigo-300 whitespace-nowrap">〜から〜にかけて</td>
+                <td class="py-3 px-4 font-jp">名詞 A ＋ から ＋ 名詞 B ＋ にかけて</td>
+                <td class="py-3 px-4">用于大致范围；明确起止时刻（如营业时间）优先用「〜から〜まで」</td>
+              </tr>
+              <tr class="hover:bg-slate-700/30">
+                <td class="py-3 px-4 font-jp font-bold text-emerald-300 whitespace-nowrap">〜がち</td>
+                <td class="py-3 px-4 font-jp">動詞ます形（去ます）／ 名詞 ＋ がち（だ・な）</td>
+                <td class="py-3 px-4">多用于反复发生的不良倾向；区别于强调事物性质的「〜やすい」</td>
+              </tr>
+              <tr class="hover:bg-slate-700/30">
+                <td class="py-3 px-4 font-jp font-bold text-orange-300 whitespace-nowrap">〜かける・〜かけ</td>
+                <td class="py-3 px-4 font-jp">動詞ます形（去ます）＋ かける／かけている／かけの＋名詞</td>
+                <td class="py-3 px-4">表“做到一半”“刚起头中断”或“差点发生某结果”</td>
+              </tr>
+              <tr class="hover:bg-slate-700/30">
+                <td class="py-3 px-4 font-jp font-bold text-purple-300 whitespace-nowrap">〜おそれがある</td>
+                <td class="py-3 px-4 font-jp">動詞辞书形・ない形 ＋ おそれがある ／ 名詞 ＋ のおそれがある</td>
+                <td class="py-3 px-4">仅用于正式的负面风险，不能接好事；中性推测用「〜かもしれない」</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ③ 睡前3分钟小自测 -->
+      <div>
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <h3 class="font-maru text-lg font-bold text-amber-200 flex items-center gap-2">
+            <span>📝</span><span>③ 睡前3分钟小自测（4题）</span>
+          </h3>
+          <div class="flex items-center gap-2">
+            <span id="quiz-score-badge" class="text-xs px-3 py-1 rounded-full bg-slate-800 border border-slate-600 text-amber-200">
+              已完成 0 / 4
+            </span>
+            <button type="button" onclick="resetQuiz()" class="text-xs px-3 py-1 rounded-full bg-slate-700 hover:bg-slate-600 text-slate-200 transition">
+              重新自测
+            </button>
+          </div>
+        </div>
+        <div id="quiz-container" class="space-y-4"></div>
+        <!-- 完成后显示的掌握度总结卡 -->
+        <div id="quiz-summary" class="hidden mt-4 p-4 rounded-2xl bg-amber-300/15 border border-amber-300/40 text-amber-100 text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div id="quiz-summary-text" class="font-medium"></div>
+          <button type="button" onclick="resetQuiz()" class="shrink-0 px-4 py-1.5 rounded-xl bg-amber-300 text-slate-900 font-bold text-xs hover:bg-amber-200 transition">
+            再刷一遍巩固
+          </button>
+        </div>
+      </div>
+
+      <!-- ④ 睡前磨耳朵一键连播 -->
+      <div class="bg-slate-900/60 border border-slate-700/90 rounded-2xl p-4 sm:p-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <h3 class="font-maru text-lg font-bold text-amber-200 flex items-center gap-2">
+              <span>🎧</span><span>④ 睡前磨耳朵一键连播</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">以柔和语速（0.85x）依次自动朗读今日4个文法的代表例句，闭眼听也能记住。</p>
+          </div>
+          <button id="btn-bedtime-play" type="button" onclick="toggleBedtimePlaylist()"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-300 hover:bg-amber-200 text-slate-900 font-bold text-sm transition active:scale-95 shadow-md shrink-0">
+            <span id="bedtime-play-icon">🎧</span>
+            <span id="bedtime-play-text">连播今日4句核心例句</span>
+          </button>
+        </div>
+
+        <div id="bedtime-playlist" class="space-y-2.5"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 底部温和鼓励语 -->
+  <footer class="max-w-4xl mx-auto px-4 pb-10 pt-2 text-center text-xs text-stone-400">
+    <p>毎日コツコツ、積み重ねが力になる。2026.11.24 打卡完成！✨</p>
+  </footer>
+
+  <!-- =========================================================
+       语音引擎设置弹窗（FishAudio API / 浏览器原生语音）
+  ========================================================== -->
+  <div id="voice-settings-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-stone-900/50 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="voice-modal-title">
+    <div class="bg-[#FAF7F2] w-full max-w-md rounded-3xl border border-stone-200 shadow-2xl overflow-hidden">
+      <!-- 弹窗顶部 -->
+      <div class="bg-white px-5 py-4 border-b border-stone-200/80 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">⚙️</span>
+          <h3 id="voice-modal-title" class="font-maru text-lg font-bold text-stone-800">语音引擎设置</h3>
+        </div>
+        <button type="button" onclick="closeVoiceModal()" aria-label="关闭弹窗"
+          class="w-8 h-8 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition">
+          ✕
+        </button>
+      </div>
+
+      <!-- 弹窗内容 -->
+      <div class="p-5 space-y-4 max-h-[78vh] overflow-y-auto">
+        <!-- 引擎选择 -->
+        <div>
+          <label class="block text-xs font-bold text-stone-600 mb-2">选择朗读引擎</label>
+          <div class="grid grid-cols-2 gap-2.5">
+            <label class="cursor-pointer">
+              <input type="radio" name="tts-engine" value="fish" class="peer sr-only" onchange="onEngineRadioChange()" />
+              <div class="p-3 rounded-2xl border-2 border-stone-200 bg-white peer-checked:border-amber-500 peer-checked:bg-amber-50/70 transition text-center">
+                <div class="text-lg mb-0.5">🐟</div>
+                <div class="text-sm font-bold text-stone-800">FishAudio API</div>
+                <div class="text-[11px] text-stone-500 mt-0.5">真人级 AI 音色</div>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="tts-engine" value="browser" class="peer sr-only" onchange="onEngineRadioChange()" />
+              <div class="p-3 rounded-2xl border-2 border-stone-200 bg-white peer-checked:border-emerald-500 peer-checked:bg-emerald-50/70 transition text-center">
+                <div class="text-lg mb-0.5">🔊</div>
+                <div class="text-sm font-bold text-stone-800">浏览器原生</div>
+                <div class="text-[11px] text-stone-500 mt-0.5">免费免配置</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- FishAudio 专属配置区 -->
+        <div id="fish-config-fields" class="space-y-3.5 bg-white p-4 rounded-2xl border border-stone-200/80">
+          <!-- API Key -->
+          <div>
+            <label for="input-fish-key" class="block text-xs font-bold text-stone-700 mb-1">FishAudio API Key（使用自建代理时可留空）</label>
+            <div class="relative">
+              <input id="input-fish-key" type="password" autocomplete="off" placeholder="直连需填 Key；若代理已配置环境变量可留空"
+                class="w-full pr-10 pl-3 py-2.5 text-sm rounded-xl border border-stone-300 bg-[#FCFBF9] focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400" />
+              <button type="button" onclick="toggleKeyVisibility()" aria-label="显示或隐藏密钥"
+                class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg hover:bg-stone-100 text-stone-500 flex items-center justify-center text-sm">
+                <span id="eye-icon">👁️</span>
+              </button>
+            </div>
+            <p class="text-[11px] text-stone-500 mt-1">🔒 若在 Cloudflare Worker 后台配置了密钥，这里可直接留空（若设置了访问口令则填口令）。</p>
+          </div>
+
+          <!-- Model / Voice ID -->
+          <div>
+            <label for="input-fish-model" class="block text-xs font-bold text-stone-700 mb-1">模型 / 音色 ID（reference_id）</label>
+            <input id="input-fish-model" type="text" autocomplete="off"
+              class="w-full px-3 py-2 text-xs sm:text-sm font-mono rounded-xl border border-stone-300 bg-[#FCFBF9] focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400" />
+          </div>
+
+          <!-- Endpoint / Proxy URL -->
+          <div>
+            <label for="input-fish-endpoint" class="block text-xs font-bold text-stone-700 mb-1">API 地址 / 跨域代理 URL</label>
+            <input id="input-fish-endpoint" type="url" autocomplete="off"
+              class="w-full px-3 py-2 text-xs sm:text-sm font-mono rounded-xl border border-stone-300 bg-[#FCFBF9] focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400" />
+            <p class="text-[11px] text-stone-500 mt-1 leading-relaxed">
+              因 FishAudio 官方接口禁止浏览器直接跨域（CORS），建议填入你的 Cloudflare Worker 代理地址（如 <code class="bg-stone-100 px-1 rounded">https://xxx.workers.dev</code>）。请求失败时会自动回退浏览器原生语音。
+            </p>
+          </div>
+        </div>
+
+        <!-- 操作按钮组 -->
+        <div class="flex flex-wrap items-center gap-2 pt-1">
+          <button type="button" onclick="saveVoiceSettings()"
+            class="flex-1 py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm transition active:scale-95 shadow-sm">
+            💾 保存到浏览器
+          </button>
+          <button id="btn-test-voice" type="button" onclick="testVoiceSettings()"
+            class="py-2.5 px-4 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-bold text-sm transition active:scale-95">
+            🎵 试听语音
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between pt-2 border-t border-stone-200/80 text-xs">
+          <span id="storage-status-hint" class="text-stone-500">同一句重播会自动命中本地内存缓存，不重复扣费</span>
+          <button type="button" onclick="clearSavedFishKey()"
+            class="text-rose-600 hover:text-rose-700 font-medium underline underline-offset-2 shrink-0 ml-2">
+            清除已存 Key
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 轻提示 Toast（替代 alert） -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-stone-900/90 text-white text-xs sm:text-sm shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 max-w-[90vw] text-center"></div>
+
+  <!-- =========================================================
+       核心数据与交互逻辑
+  ========================================================== -->
+  <script>
+    /* -----------------------------------------------------------
+       1. 文法完整例句数据
+    ----------------------------------------------------------- */
+    const GRAMMAR_EXAMPLES = {
+  "g1": [
+    {
+      "tag": "原笔记例句",
+      "tagStyle": "bg-indigo-100 text-indigo-800 border-indigo-200",
+      "noteStyle": "text-indigo-700 bg-indigo-50/90 border-indigo-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>春<rt>はる<\/rt><\/ruby><span class=\"hl-theme\">から<\/span><ruby>夏<rt>なつ<\/rt><\/ruby><span class=\"hl-theme\">にかけて<\/span><ruby>花<rt>はな<\/rt><\/ruby>が<ruby>咲<rt>さ<\/rt><\/ruby>く。",
+      "plainText": "春から夏にかけて花が咲く。",
+      "cn": "从春天到夏天这段期间，花会开放。"
+    },
+    {
+      "tag": "原笔记例句",
+      "tagStyle": "bg-indigo-100 text-indigo-800 border-indigo-200",
+      "noteStyle": "text-indigo-700 bg-indigo-50/90 border-indigo-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>今夜<rt>こんや<\/rt><\/ruby><span class=\"hl-theme\">から<\/span><ruby>明朝<rt>みょうちょう<\/rt><\/ruby><span class=\"hl-theme\">にかけて<\/span><ruby>雨<rt>あめ<\/rt><\/ruby>が<ruby>降<rt>ふ<\/rt><\/ruby>る。",
+      "plainText": "今夜から明朝にかけて雨が降る。",
+      "cn": "今晚到明早会下雨。"
+    },
+    {
+      "tag": "日常例句 · 空间范围",
+      "tagStyle": "bg-amber-100 text-amber-800 border-amber-200",
+      "noteStyle": "text-indigo-700 bg-indigo-50/90 border-indigo-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>関東<rt>かんとう<\/rt><\/ruby><span class=\"hl-theme\">から<\/span><ruby>東北<rt>とうほく<\/rt><\/ruby><span class=\"hl-theme\">にかけて<\/span>、<ruby>強<rt>つよ<\/rt><\/ruby>い<ruby>地震<rt>じしん<\/rt><\/ruby>があった。",
+      "plainText": "関東から東北にかけて、強い地震があった。",
+      "cn": "从关东到东北一带发生了强震。"
+    },
+    {
+      "tag": "日常例句 · 时间区间",
+      "tagStyle": "bg-amber-100 text-amber-800 border-amber-200",
+      "noteStyle": "text-indigo-700 bg-indigo-50/90 border-indigo-200/70",
+      "isContrast": false,
+      "jpHtml": "12<ruby>月<rt>がつ<\/rt><\/ruby><span class=\"hl-theme\">から<\/span>1<ruby>月<rt>がつ<\/rt><\/ruby><span class=\"hl-theme\">にかけて<\/span>、<ruby>仕事<rt>しごと<\/rt><\/ruby>が<ruby>一番<rt>いちばん<\/rt><\/ruby><ruby>忙<rt>いそが<\/rt><\/ruby>しくなる。",
+      "plainText": "12月から1月にかけて、仕事が一番忙しくなる。",
+      "cn": "从12月到1月这段时间，工作会变得最忙。"
+    },
+    {
+      "tag": "辨析 · 〜から〜まで",
+      "tagStyle": "bg-teal-100 text-teal-800 border-teal-200",
+      "noteStyle": "text-indigo-700 bg-indigo-50/90 border-indigo-200/70",
+      "isContrast": true,
+      "jpHtml": "この<ruby>店<rt>みせ<\/rt><\/ruby>は<ruby>午前<rt>ごぜん<\/rt><\/ruby>10<ruby>時<rt>じ<\/rt><\/ruby><span class=\"hl-contrast\">から<\/span><ruby>午後<rt>ごご<\/rt><\/ruby>8<ruby>時<rt>じ<\/rt><\/ruby><span class=\"hl-contrast\">まで<\/span><ruby>営業<rt>えいぎょう<\/rt><\/ruby>している。",
+      "plainText": "この店は午前10時から午後8時まで営業している。",
+      "cn": "这家店从上午10点营业到晚上8点。（明确起止用まで）"
+    }
+  ],
+  "g2": [
+    {
+      "tag": "原笔记例句",
+      "tagStyle": "bg-emerald-100 text-emerald-800 border-emerald-200",
+      "noteStyle": "text-emerald-800 bg-emerald-50/90 border-emerald-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>最近<rt>さいきん<\/rt><\/ruby>、<ruby>忘<rt>わす<\/rt><\/ruby>れ<span class=\"hl-theme\">がちだ<\/span>。",
+      "plainText": "最近、忘れがちだ。",
+      "cn": "最近经常忘事。"
+    },
+    {
+      "tag": "原笔记例句",
+      "tagStyle": "bg-emerald-100 text-emerald-800 border-emerald-200",
+      "noteStyle": "text-emerald-800 bg-emerald-50/90 border-emerald-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>彼<rt>かれ<\/rt><\/ruby>は<ruby>病気<rt>びょうき<\/rt><\/ruby><span class=\"hl-theme\">がちだ<\/span>。",
+      "plainText": "彼は病気がちだ。",
+      "cn": "他经常生病。",
+      "note": "名词直连示范：病気 ＋ がちだ（无需加の）"
+    },
+    {
+      "tag": "日常口语",
+      "tagStyle": "bg-amber-100 text-amber-800 border-amber-200",
+      "noteStyle": "text-emerald-800 bg-emerald-50/90 border-emerald-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>一人暮<rt>ひとりぐ<\/rt><\/ruby>らしだと、<ruby>野菜<rt>やさい<\/rt><\/ruby>が<ruby>不足<rt>ふそく<\/rt><\/ruby>し<span class=\"hl-theme\">がち<\/span>になる。",
+      "plainText": "一人暮らしだと、野菜が不足しがちになる。",
+      "cn": "一个人住的话，很容易缺乏蔬菜。"
+    },
+    {
+      "tag": "日常口语 · 定语",
+      "tagStyle": "bg-amber-100 text-amber-800 border-amber-200",
+      "noteStyle": "text-emerald-800 bg-emerald-50/90 border-emerald-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>梅雨<rt>つゆ<\/rt><\/ruby>の<ruby>時期<rt>じき<\/rt><\/ruby>は<ruby>曇<rt>くも<\/rt><\/ruby>り<span class=\"hl-theme\">がちな<\/span><ruby>天気<rt>てんき<\/rt><\/ruby>が<ruby>続<rt>つづ<\/rt><\/ruby>く。",
+      "plainText": "梅雨の時期は曇りがちな天気が続く。",
+      "cn": "梅雨季节经常持续阴天。"
+    },
+    {
+      "tag": "辨析 · やすい",
+      "tagStyle": "bg-teal-100 text-teal-800 border-teal-200",
+      "noteStyle": "text-emerald-800 bg-emerald-50/90 border-emerald-200/70",
+      "isContrast": true,
+      "jpHtml": "このペンは<ruby>軽<rt>かる<\/rt><\/ruby>くてとても<ruby>書<rt>か<\/rt><\/ruby>き<span class=\"hl-contrast\">やすい<\/span>。",
+      "plainText": "このペンは軽くてとても書きやすい。",
+      "cn": "这支笔很轻，非常好写。（客观性质用やすい，不能用がち）"
+    }
+  ],
+  "g3": [
+    {
+      "tag": "原笔记例句 · 未完成",
+      "tagStyle": "bg-orange-100 text-orange-800 border-orange-200",
+      "noteStyle": "text-orange-800 bg-orange-50/90 border-orange-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>読<rt>よ<\/rt><\/ruby>み<span class=\"hl-theme\">かけの<\/span><ruby>本<rt>ほん<\/rt><\/ruby>がある。",
+      "plainText": "読みかけの本がある。",
+      "cn": "有一本读到一半的书。"
+    },
+    {
+      "tag": "原笔记例句 · 刚起头",
+      "tagStyle": "bg-orange-100 text-orange-800 border-orange-200",
+      "noteStyle": "text-orange-800 bg-orange-50/90 border-orange-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>何<rt>なに<\/rt><\/ruby>か<ruby>言<rt>い<\/rt><\/ruby>い<span class=\"hl-theme\">かけて<\/span>やめた。",
+      "plainText": "何か言いかけてやめた。",
+      "cn": "刚想说些什么，又停下了。"
+    },
+    {
+      "tag": "原笔记例句 · 差点",
+      "tagStyle": "bg-orange-100 text-orange-800 border-orange-200",
+      "noteStyle": "text-orange-800 bg-orange-50/90 border-orange-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>転<rt>ころ<\/rt><\/ruby>び<span class=\"hl-theme\">かけた<\/span>。",
+      "plainText": "転びかけた。",
+      "cn": "差点跌倒。"
+    },
+    {
+      "tag": "日常口语 · 未完成",
+      "tagStyle": "bg-amber-100 text-amber-800 border-amber-200",
+      "noteStyle": "text-orange-800 bg-orange-50/90 border-orange-200/70",
+      "isContrast": false,
+      "jpHtml": "テーブルの<ruby>上<rt>うえ<\/rt><\/ruby>に<ruby>飲<rt>の<\/rt><\/ruby>み<span class=\"hl-theme\">かけの<\/span>コーヒーが<ruby>置<rt>お<\/rt><\/ruby>いてある。",
+      "plainText": "テーブルの上に飲みかけのコーヒーが置いてある。",
+      "cn": "桌子上放着一杯喝到一半的咖啡。"
+    },
+    {
+      "tag": "日常口语 · 差点",
+      "tagStyle": "bg-amber-100 text-amber-800 border-amber-200",
+      "noteStyle": "text-orange-800 bg-orange-50/90 border-orange-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>難<rt>むずか<\/rt><\/ruby>しくて<ruby>途中<rt>とちゅう<\/rt><\/ruby>で<ruby>諦<rt>あきら<\/rt><\/ruby>め<span class=\"hl-theme\">かけた<\/span>けど、<ruby>最後<rt>さいご<\/rt><\/ruby>までやりきった。",
+      "plainText": "難しくて途中で諦めかけたけど、最後までやりきった。",
+      "cn": "因为太难中途差点放弃，但我还是坚持做完了。"
+    }
+  ],
+  "g4": [
+    {
+      "tag": "原笔记例句 · 动词ない形",
+      "tagStyle": "bg-purple-100 text-purple-800 border-purple-200",
+      "noteStyle": "text-purple-800 bg-purple-50/90 border-purple-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>納期<rt>のうき<\/rt><\/ruby>に<ruby>間<rt>ま<\/rt><\/ruby>に<ruby>合<rt>あ<\/rt><\/ruby>わない<span class=\"hl-theme\">おそれがある<\/span>。",
+      "plainText": "納期に間に合わないおそれがある。",
+      "cn": "存在无法赶上交付期限的风险。"
+    },
+    {
+      "tag": "原笔记例句 · 名词",
+      "tagStyle": "bg-purple-100 text-purple-800 border-purple-200",
+      "noteStyle": "text-purple-800 bg-purple-50/90 border-purple-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>火災<rt>かさい<\/rt><\/ruby>の<span class=\"hl-theme\">おそれがある<\/span>。",
+      "plainText": "火災のおそれがある。",
+      "cn": "有发生火灾的风险。"
+    },
+    {
+      "tag": "原笔记例句 · 否定",
+      "tagStyle": "bg-purple-100 text-purple-800 border-purple-200",
+      "noteStyle": "text-purple-800 bg-purple-50/90 border-purple-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>津波<rt>つなみ<\/rt><\/ruby>の<span class=\"hl-theme\">おそれはない<\/span>。",
+      "plainText": "津波のおそれはない。",
+      "cn": "没有海啸风险。",
+      "note": "新闻防灾高频句型：津波の心配／おそれはない"
+    },
+    {
+      "tag": "日常 / 新闻例句",
+      "tagStyle": "bg-amber-100 text-amber-800 border-amber-200",
+      "noteStyle": "text-purple-800 bg-purple-50/90 border-purple-200/70",
+      "isContrast": false,
+      "jpHtml": "<ruby>台風<rt>たいふう<\/rt><\/ruby>の<ruby>影響<rt>えいきょう<\/rt><\/ruby>で、<ruby>電車<rt>でんしゃ<\/rt><\/ruby>が<ruby>止<rt>と<\/rt><\/ruby>まる<span class=\"hl-theme\">おそれがある<\/span>。",
+      "plainText": "台風の影響で、電車が止まるおそれがある。",
+      "cn": "受台风影响，电车存在停运的风险。"
+    },
+    {
+      "tag": "商务例句",
+      "tagStyle": "bg-amber-100 text-amber-800 border-amber-200",
+      "noteStyle": "text-purple-800 bg-purple-50/90 border-purple-200/70",
+      "isContrast": false,
+      "jpHtml": "このままでは<ruby>個人情報<rt>こじんじょうほう<\/rt><\/ruby>が<ruby>漏<rt>も<\/rt><\/ruby>れる<span class=\"hl-theme\">おそれがある<\/span>ので、<ruby>対策<rt>たいさく<\/rt><\/ruby>が<ruby>必要<rt>ひつよう<\/rt><\/ruby>だ。",
+      "plainText": "このままでは個人情報が漏れるおそれがあるので、対策が必要だ。",
+      "cn": "照这样下去有个人信息泄露的风险，因此需要采取对策。"
+    },
+    {
+      "tag": "辨析 · かもしれない",
+      "tagStyle": "bg-teal-100 text-teal-800 border-teal-200",
+      "noteStyle": "text-purple-800 bg-purple-50/90 border-purple-200/70",
+      "isContrast": true,
+      "jpHtml": "<ruby>明日<rt>あした<\/rt><\/ruby>は<ruby>晴<rt>は<\/rt><\/ruby>れる<span class=\"hl-contrast\">かもしれない<\/span>から、ピクニックに<ruby>行<rt>い<\/rt><\/ruby>こう。",
+      "plainText": "明日は晴れるかもしれないから、ピクニックに行こう。",
+      "cn": "明天也许会放晴，我们去野餐吧。（正面/中性推测用かもしれない）"
+    }
+  ]
+};
+
+    /* -----------------------------------------------------------
+       2. 睡前小自测题目数据
+    ----------------------------------------------------------- */
+    const QUIZ_DATA = [
+  {
+    "id": 1,
+    "grammar": "① 〜から〜にかけて",
+    "questionHtml": "<ruby>今夜<rt>こんや<\/rt><\/ruby>から<ruby>明朝<rt>みょうちょう<\/rt><\/ruby>（　　　）、<ruby>強<rt>つよ<\/rt><\/ruby>い<ruby>雨<rt>あめ<\/rt><\/ruby>が<ruby>降<rt>ふ<\/rt><\/ruby>るでしょう。",
+    "options": [
+      "にかけて",
+      "がちで",
+      "かけの",
+      "おそれで"
+    ],
+    "answer": 0,
+    "explanation": "表示“今晚到明早这一带”的大致时间范围，应选「〜から〜にかけて」。"
+  },
+  {
+    "id": 2,
+    "grammar": "② 〜がち",
+    "questionHtml": "<ruby>忙<rt>いそが<\/rt><\/ruby>しくなると、<ruby>食事<rt>しょくじ<\/rt><\/ruby>の<ruby>時間<rt>じかん<\/rt><\/ruby>が<ruby>不規則<rt>ふきそく<\/rt><\/ruby>になり（　　　）だ。",
+    "options": [
+      "かけ",
+      "がち",
+      "おそれ",
+      "にかけて"
+    ],
+    "answer": 1,
+    "explanation": "表示一忙就容易反复出现的不良倾向（饮食不规律），动词ます形去ます（なり）后接「がちだ」。"
+  },
+  {
+    "id": 3,
+    "grammar": "③ 〜かける・〜かけ",
+    "questionHtml": "ベッドの<ruby>横<rt>よこ<\/rt><\/ruby>に、<ruby>読<rt>よ<\/rt><\/ruby>み（　　　）の<ruby>小説<rt>しょうせつ<\/rt><\/ruby>が<ruby>置<rt>お<\/rt><\/ruby>いてある。",
+    "options": [
+      "がち",
+      "おそれ",
+      "かけ",
+      "かけて"
+    ],
+    "answer": 2,
+    "explanation": "修饰名词表示“读到一半的小说”，应使用「動詞ます形去ます＋かけの＋名詞」，选「かけ」。"
+  },
+  {
+    "id": 4,
+    "grammar": "④ 〜おそれがある",
+    "questionHtml": "このまま<ruby>雨<rt>あめ<\/rt><\/ruby>が<ruby>続<rt>つづ<\/rt><\/ruby>くと、<ruby>川<rt>かわ<\/rt><\/ruby>が<ruby>氾濫<rt>はんらん<\/rt><\/ruby>する（　　　）。",
+    "options": [
+      "がちだ",
+      "かけている",
+      "にかけてだ",
+      "おそれがある"
+    ],
+    "answer": 3,
+    "explanation": "表示正式的负面灾害风险（河流泛滥的风险），动词辞书形后接「おそれがある」。"
+  }
+];
+
+    /* -----------------------------------------------------------
+       3. 睡前磨耳朵一键连播数据
+    ----------------------------------------------------------- */
+    const BEDTIME_PLAYLIST = [
+  {
+    "label": "① 〜から〜にかけて",
+    "color": "text-indigo-300",
+    "jpHtml": "<ruby>今夜<rt>こんや<\/rt><\/ruby><span class=\"hl-theme\">から<\/span><ruby>明朝<rt>みょうちょう<\/rt><\/ruby><span class=\"hl-theme\">にかけて<\/span><ruby>雨<rt>あめ<\/rt><\/ruby>が<ruby>降<rt>ふ<\/rt><\/ruby>る。",
+    "plainText": "今夜から明朝にかけて雨が降る。",
+    "cn": "今晚到明早会下雨。"
+  },
+  {
+    "label": "② 〜がち",
+    "color": "text-emerald-300",
+    "jpHtml": "<ruby>彼<rt>かれ<\/rt><\/ruby>は<ruby>病気<rt>びょうき<\/rt><\/ruby><span class=\"hl-theme\">がちだ<\/span>。",
+    "plainText": "彼は病気がちだ。",
+    "cn": "他经常生病。"
+  },
+  {
+    "label": "③ 〜かける・〜かけ",
+    "color": "text-orange-300",
+    "jpHtml": "<ruby>何<rt>なに<\/rt><\/ruby>か<ruby>言<rt>い<\/rt><\/ruby>い<span class=\"hl-theme\">かけて<\/span>やめた。",
+    "plainText": "何か言いかけてやめた。",
+    "cn": "刚想说些什么，又停下了。"
+  },
+  {
+    "label": "④ 〜おそれがある",
+    "color": "text-purple-300",
+    "jpHtml": "<ruby>納期<rt>のうき<\/rt><\/ruby>に<ruby>間<rt>ま<\/rt><\/ruby>に<ruby>合<rt>あ<\/rt><\/ruby>わない<span class=\"hl-theme\">おそれがある<\/span>。",
+    "plainText": "納期に間に合わないおそれがある。",
+    "cn": "存在无法赶上交付期限的风险。"
+  }
+];
+
+    /* -----------------------------------------------------------
+       4. 全局状态 & 双引擎 TTS（FishAudio API + Web Speech API）
+    ----------------------------------------------------------- */
+    const FISH_DEFAULT_MODEL_ID = '14073a8ffcad4c2297ee567777b18d23';
+    const FISH_OFFICIAL_ENDPOINT = 'https://api.fish.audio/v1/tts';
+    const FISH_DEFAULT_ENDPOINT = 'https://fish-tts.yexin-liu.workers.dev/';
+    const STORAGE_KEY = 'jp_grammar_tts_settings_v2';
+    const LEGACY_STORAGE_KEY = 'jp_grammar_tts_config_v2';
+
+    let ttsSettings = {
+      engine: 'fish',
+      apiKey: '',
+      referenceId: FISH_DEFAULT_MODEL_ID,
+      endpoint: FISH_DEFAULT_ENDPOINT
+    };
+
+    let globalRate = 1.0;             // 1.0 正常 / 0.75 慢速
+    let jaVoice = null;               // 优先选中的浏览器日语语音
+    let activeCardEl = null;          // 当前正在加载或播放的卡片
+    let activeBtnEl = null;           // 弹窗试听按钮
+    let activeAudio = null;           // 当前正在播放的 HTML5 Audio 对象
+    let activeFetchController = null; // 用于取消进行中的 FishAudio 请求
+    let isBedtimePlaying = false;     // 是否正在进行睡前连播
+    let bedtimeTimer = null;          // 连播间隔定时器
+    let playSessionId = 0;            // 防止并发回调错乱
+
+    const fishAudioCache = new Map();
+    const synth = 'speechSynthesis' in window ? window.speechSynthesis : null;
+
+    function escapeAttr(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function renderDotIndicatorHtml() {
+      return `
+        <div class="play-indicator shrink-0 flex items-center justify-center w-6 h-6 mt-0.5" aria-hidden="true">
+          <span class="idle-dot"></span>
+          <span class="loading-dots">
+            <span class="loading-dot"></span>
+            <span class="loading-dot"></span>
+            <span class="loading-dot"></span>
+          </span>
+          <span class="wave-bars">
+            <span class="wave-bar"></span>
+            <span class="wave-bar"></span>
+            <span class="wave-bar"></span>
+          </span>
+        </div>
+      `;
+    }
+
+    function loadVoiceSettings() {
+      try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          ttsSettings = {
+            engine: parsed.engine === 'browser' ? 'browser' : 'fish',
+            apiKey: typeof parsed.apiKey === 'string' ? parsed.apiKey : '',
+            referenceId: parsed.referenceId || FISH_DEFAULT_MODEL_ID,
+            endpoint: parsed.endpoint || FISH_DEFAULT_ENDPOINT
+          };
+        } else {
+          const legacyRaw = window.localStorage.getItem(LEGACY_STORAGE_KEY);
+          if (legacyRaw) {
+            const legacy = JSON.parse(legacyRaw);
+            ttsSettings = {
+              engine: legacy.engine === 'browser' ? 'browser' : 'fish',
+              apiKey: typeof legacy.fishKey === 'string' ? legacy.fishKey : '',
+              referenceId: legacy.fishModel || FISH_DEFAULT_MODEL_ID,
+              endpoint: legacy.fishUrl || FISH_DEFAULT_ENDPOINT
+            };
+          }
+        }
+      } catch (e) {
+        // 受限 iframe 环境无法访问 localStorage 时静默降级为内存态
+      }
+      refreshEngineBadges();
+    }
+
+    function persistVoiceSettings() {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(ttsSettings));
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function refreshEngineBadges() {
+      const badge = document.getElementById('engine-badge');
+      const statusEl = document.getElementById('voice-status');
+      const endpoint = (ttsSettings.endpoint || '').trim();
+      const isProxyEndpoint = endpoint.length > 0 && !endpoint.includes('api.fish.audio');
+      const useFish = ttsSettings.engine === 'fish' && (ttsSettings.apiKey.trim().length > 0 || isProxyEndpoint);
+
+      if (badge) {
+        if (ttsSettings.engine === 'fish') {
+          badge.textContent = useFish ? '🐟 FishAudio' : '🐟 FishAudio(需配置)';
+          badge.className = 'px-1.5 py-0.5 rounded-md bg-amber-100/90 border border-amber-300 text-[11px] font-bold text-amber-900';
+        } else {
+          badge.textContent = '🔊 浏览器语音';
+          badge.className = 'px-1.5 py-0.5 rounded-md bg-white/90 border border-amber-200/80 text-[11px] font-bold text-stone-700';
+        }
+      }
+
+      if (statusEl) {
+        if (useFish) {
+          statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span><span>🐟 FishAudio ${isProxyEndpoint ? '代理已就绪' : '已配置'}</span>`;
+        } else if (ttsSettings.engine === 'fish') {
+          statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400"></span><span>🐟 待配置代理/Key（自动回退浏览器）</span>`;
+        } else if (synth) {
+          statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>🔊 浏览器日语语音就绪</span>`;
+        } else {
+          statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-400"></span><span>浏览器不支持语音朗读</span>`;
+        }
+      }
+    }
+
+    function loadJapaneseVoice() {
+      if (!synth) {
+        refreshEngineBadges();
+        return;
+      }
+      const voices = synth.getVoices();
+      if (!voices.length) return;
+
+      const jaVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith('ja'));
+      if (jaVoices.length > 0) {
+        jaVoice =
+          jaVoices.find(v => /Google|Nanami|Kyoko|Haruka|O-Ren|Otoya/i.test(v.name)) ||
+          jaVoices[0];
+      }
+      refreshEngineBadges();
+    }
+
+    if (synth) {
+      loadJapaneseVoice();
+      if (typeof synth.onvoiceschanged !== 'undefined') {
+        synth.onvoiceschanged = loadJapaneseVoice;
+      }
+    }
+
+    function openVoiceModal() {
+      const modal = document.getElementById('voice-settings-modal');
+      document.querySelectorAll('input[name="tts-engine"]').forEach(r => {
+        r.checked = (r.value === ttsSettings.engine);
+      });
+      document.getElementById('input-fish-key').value = ttsSettings.apiKey || '';
+      document.getElementById('input-fish-model').value = ttsSettings.referenceId || FISH_DEFAULT_MODEL_ID;
+      document.getElementById('input-fish-endpoint').value = ttsSettings.endpoint || FISH_DEFAULT_ENDPOINT;
+      onEngineRadioChange();
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeVoiceModal() {
+      const modal = document.getElementById('voice-settings-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function onEngineRadioChange() {
+      const selected = document.querySelector('input[name="tts-engine"]:checked')?.value || 'browser';
+      const fishFields = document.getElementById('fish-config-fields');
+      fishFields.classList.toggle('opacity-60', selected !== 'fish');
+    }
+
+    function toggleKeyVisibility() {
+      const input = document.getElementById('input-fish-key');
+      const icon = document.getElementById('eye-icon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        icon.textContent = '👁️';
+      }
+    }
+
+    function applyModalInputsToState() {
+      const selected = document.querySelector('input[name="tts-engine"]:checked')?.value || 'browser';
+      const apiKey = document.getElementById('input-fish-key').value.trim();
+      const referenceId = document.getElementById('input-fish-model').value.trim() || FISH_DEFAULT_MODEL_ID;
+      const endpoint = document.getElementById('input-fish-endpoint').value.trim() || FISH_DEFAULT_ENDPOINT;
+      ttsSettings = { engine: selected, apiKey, referenceId, endpoint };
+      refreshEngineBadges();
+    }
+
+    function saveVoiceSettings() {
+      applyModalInputsToState();
+      const saved = persistVoiceSettings();
+      closeVoiceModal();
+      if (saved) {
+        showToast(ttsSettings.engine === 'fish'
+          ? '🐟 已保存 FishAudio 配置到浏览器缓存'
+          : '🔊 已切换并保存为浏览器原生语音');
+      } else {
+        showToast('已应用设置（当前沙箱环境不支持持久缓存，仅本次有效）');
+      }
+    }
+
+    function clearSavedFishKey() {
+      document.getElementById('input-fish-key').value = '';
+      ttsSettings.apiKey = '';
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(ttsSettings));
+      } catch (e) {}
+      refreshEngineBadges();
+      showToast('已清除浏览器中缓存的 FishAudio API Key');
+    }
+
+    function testVoiceSettings() {
+      applyModalInputsToState();
+      const btn = document.getElementById('btn-test-voice');
+      stopAllSpeech();
+      playUnifiedTTS({
+        text: 'こんにちは、今日も一緒に日本語を勉強しましょう。',
+        rate: globalRate,
+        btn
+      });
+    }
+
+    /**
+     * 核心工具：获取不含 <rt>/<rp> 振假名的纯净日语文本
+     */
+    function extractCleanJapaneseText(cardEl) {
+      const attrText = cardEl.getAttribute('data-text');
+      if (attrText && attrText.trim()) return attrText.trim();
+      const target = cardEl.querySelector('.jp-speech-target') || cardEl;
+      const clone = target.cloneNode(true);
+      clone.querySelectorAll('rt, rp').forEach(node => node.remove());
+      return (clone.textContent || '').replace(/\s+/g, '').trim();
+    }
+
+    let toastTimeout = null;
+    function showToast(msg, duration = 2600) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, duration);
+    }
+
+    function setCardState(cardEl, state) {
+      if (!cardEl) return;
+      cardEl.classList.remove('loading', 'playing');
+      if (state === 'loading') cardEl.classList.add('loading');
+      if (state === 'playing') cardEl.classList.add('playing');
+    }
+
+    function setTestBtnState(btn, state) {
+      if (!btn) return;
+      if (state === 'loading') {
+        btn.innerHTML = '<span class="tts-spinner"></span> <span>加载中…</span>';
+      } else if (state === 'playing') {
+        btn.innerHTML = '<span>🔊 正在试听…</span>';
+      } else {
+        btn.innerHTML = '🎵 试听语音';
+      }
+    }
+
+    function resetActiveUI() {
+      if (activeCardEl) {
+        setCardState(activeCardEl, 'idle');
+        activeCardEl = null;
+      }
+      if (activeBtnEl) {
+        setTestBtnState(activeBtnEl, 'idle');
+        activeBtnEl = null;
+      }
+      document.getElementById('btn-stop-all').classList.add('hidden');
+    }
+
+    function stopAllSpeech() {
+      playSessionId++;
+      clearTimeout(bedtimeTimer);
+      bedtimeTimer = null;
+
+      if (isBedtimePlaying) {
+        isBedtimePlaying = false;
+        updateBedtimePlayUI(false);
+      }
+
+      if (activeFetchController) {
+        try { activeFetchController.abort(); } catch (e) {}
+        activeFetchController = null;
+      }
+
+      if (activeAudio) {
+        try {
+          activeAudio.onended = null;
+          activeAudio.onerror = null;
+          activeAudio.pause();
+          activeAudio.currentTime = 0;
+        } catch (e) {}
+        activeAudio = null;
+      }
+
+      if (synth) {
+        try { synth.cancel(); } catch (e) {}
+      }
+
+      resetActiveUI();
+    }
+
+    function playUnifiedTTS({ text, rate = globalRate, cardEl = null, btn = null, onDone = null }) {
+      if (!text) {
+        if (onDone) onDone(false);
+        return;
+      }
+
+      const sessionId = ++playSessionId;
+      if (activeCardEl && activeCardEl !== cardEl) {
+        setCardState(activeCardEl, 'idle');
+      }
+      if (activeBtnEl && activeBtnEl !== btn) {
+        setTestBtnState(activeBtnEl, 'idle');
+      }
+
+      activeCardEl = cardEl;
+      activeBtnEl = btn;
+      document.getElementById('btn-stop-all').classList.remove('hidden');
+
+      const endpoint = (ttsSettings.endpoint || '').trim();
+      const isProxyEndpoint = endpoint.length > 0 && !endpoint.includes('api.fish.audio');
+      const canUseFish = ttsSettings.engine === 'fish' && (ttsSettings.apiKey.trim().length > 0 || isProxyEndpoint);
+
+      if (canUseFish) {
+        playWithFishAudio({ text, rate, cardEl, btn, sessionId, onDone });
+      } else {
+        playWithBrowserTTS({ text, rate, cardEl, btn, sessionId, onDone });
+      }
+    }
+
+    async function playWithFishAudio({ text, rate, cardEl, btn, sessionId, onDone }) {
+      const endpoint = (ttsSettings.endpoint || FISH_DEFAULT_ENDPOINT).trim();
+      const referenceId = (ttsSettings.referenceId || FISH_DEFAULT_MODEL_ID).trim();
+      const cacheKey = `${endpoint}::${referenceId}::${text}`;
+
+      const playAudioFromUrl = (url) => {
+        if (sessionId !== playSessionId) return;
+        const audio = new Audio(url);
+        audio.playbackRate = rate;
+        activeAudio = audio;
+        setCardState(cardEl, 'playing');
+        setTestBtnState(btn, 'playing');
+
+        audio.onended = () => {
+          if (activeAudio === audio) activeAudio = null;
+          if (sessionId !== playSessionId) return;
+          if (!isBedtimePlaying) resetActiveUI();
+          else setCardState(cardEl, 'idle');
+          if (onDone) onDone(true);
+        };
+
+        audio.onerror = () => {
+          if (activeAudio === audio) activeAudio = null;
+          if (sessionId !== playSessionId) return;
+          showToast('音频播放失败，已切换浏览器原生日语朗读');
+          playWithBrowserTTS({ text, rate, cardEl, btn, sessionId, onDone });
+        };
+
+        audio.play().catch(() => {
+          if (activeAudio === audio) activeAudio = null;
+          if (sessionId !== playSessionId) return;
+          showToast('浏览器拦截自动播放，已切换原生日语语音');
+          playWithBrowserTTS({ text, rate, cardEl, btn, sessionId, onDone });
+        });
+      };
+
+      if (fishAudioCache.has(cacheKey)) {
+        playAudioFromUrl(fishAudioCache.get(cacheKey));
+        return;
+      }
+
+      setCardState(cardEl, 'loading');
+      setTestBtnState(btn, 'loading');
+      const controller = new AbortController();
+      activeFetchController = controller;
+
+      try {
+        const headers = {
+          'Content-Type': 'application/json',
+          'model': 's2.1-pro'
+        };
+        if (ttsSettings.apiKey && ttsSettings.apiKey.trim()) {
+          headers['Authorization'] = `Bearer ${ttsSettings.apiKey.trim()}`;
+        }
+
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            text,
+            reference_id: referenceId,
+            format: 'mp3'
+          }),
+          signal: controller.signal
+        });
+
+        if (activeFetchController === controller) activeFetchController = null;
+        if (sessionId !== playSessionId) return;
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const blob = await res.blob();
+        if (!blob || blob.size === 0) throw new Error('Empty audio response');
+
+        const audioUrl = URL.createObjectURL(blob);
+        fishAudioCache.set(cacheKey, audioUrl);
+        playAudioFromUrl(audioUrl);
+      } catch (err) {
+        if (activeFetchController === controller) activeFetchController = null;
+        if ((err && err.name === 'AbortError') || sessionId !== playSessionId) return;
+        const statusMsg = err && err.message ? err.message : '网络异常';
+        showToast(`FishAudio 请求失败（${statusMsg}），已自动回退浏览器语音`, 3000);
+        playWithBrowserTTS({ text, rate, cardEl, btn, sessionId, onDone });
+      }
+    }
+
+    function playWithBrowserTTS({ text, rate, cardEl, btn, sessionId, onDone }) {
+      if (sessionId !== playSessionId) return;
+      if (!synth) {
+        showToast('当前浏览器不支持语音合成，请配置 FishAudio 代理');
+        resetActiveUI();
+        if (onDone) onDone(false);
+        return;
+      }
+
+      try {
+        synth.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'ja-JP';
+        utter.rate = rate;
+        if (jaVoice) utter.voice = jaVoice;
+
+        setCardState(cardEl, 'playing');
+        setTestBtnState(btn, 'playing');
+
+        utter.onstart = () => {
+          if (sessionId !== playSessionId) return;
+          setCardState(cardEl, 'playing');
+          setTestBtnState(btn, 'playing');
+        };
+
+        utter.onend = () => {
+          if (sessionId !== playSessionId) return;
+          if (!isBedtimePlaying) resetActiveUI();
+          else setCardState(cardEl, 'idle');
+          if (onDone) onDone(true);
+        };
+
+        utter.onerror = (e) => {
+          if (sessionId !== playSessionId) return;
+          if (e && (e.error === 'interrupted' || e.error === 'canceled')) return;
+          if (!isBedtimePlaying) resetActiveUI();
+          else setCardState(cardEl, 'idle');
+          if (onDone) onDone(false);
+        };
+
+        synth.speak(utter);
+      } catch (e) {
+        resetActiveUI();
+        if (onDone) onDone(false);
+      }
+    }
+
+    /**
+     * 点击整张例句 / 词组 / 睡前卡片朗读（再次点击同一卡片停止）
+     */
+    function speakCard(cardEl) {
+      const isSameCardActive = activeCardEl === cardEl && !isBedtimePlaying;
+      stopAllSpeech();
+      if (isSameCardActive) return;
+
+      const text = extractCleanJapaneseText(cardEl);
+      if (!text) return;
+      playUnifiedTTS({ text, rate: globalRate, cardEl });
+    }
+
+    /**
+     * 中文翻译点击处理：隐藏翻译模式下仅偷看翻译，不误触发音
+     */
+    function handleTranslationClick(event, el) {
+      if (document.body.classList.contains('hide-translation')) {
+        event.stopPropagation();
+        el.classList.toggle('peeked');
+      }
+    }
+
+    /* -----------------------------------------------------------
+       5. 渲染例句卡片（整卡点击发音 + 极简小圆点状态指示）
+    ----------------------------------------------------------- */
+    function renderExamples() {
+      Object.keys(GRAMMAR_EXAMPLES).forEach(groupKey => {
+        const container = document.getElementById(`examples-${groupKey}`);
+        if (!container) return;
+
+        const items = GRAMMAR_EXAMPLES[groupKey];
+        container.innerHTML = items.map((item, idx) => {
+          const textId = `jp-${groupKey}-${idx}`;
+          const cardStyle = item.isContrast
+            ? 'bg-teal-50/40 hover:bg-teal-50/80 border-dashed border-teal-200 hover:border-teal-300'
+            : 'bg-[#FCFBF9] hover:bg-white border-stone-200/80 hover:border-amber-300';
+          const noteHtml = item.note
+            ? `<div class="mt-1.5 inline-flex items-center gap-1 text-xs ${item.noteStyle} border px-2.5 py-0.5 rounded-lg">📌 ${item.note}</div>`
+            : '';
+
+          return `
+            <div role="button" tabindex="0"
+              data-text="${escapeAttr(item.plainText)}"
+              onclick="speakCard(this)"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+              aria-label="点击卡片播放日语例句"
+              class="playable-card group cursor-pointer select-none ${cardStyle} border rounded-2xl p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex-1 min-w-0">
+                  <div class="flex flex-wrap items-center gap-2 mb-2">
+                    <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${item.tagStyle}">${item.tag}</span>
+                  </div>
+                  <p id="${textId}" class="jp-speech-target font-jp text-base sm:text-[17px] leading-[2.15] text-stone-800 tracking-wide break-words">
+                    ${item.jpHtml}
+                  </p>
+                  <p class="translation-text text-sm text-stone-500 mt-1.5 leading-relaxed" title="隐藏翻译时点击可临时查看" onclick="handleTranslationClick(event, this)">
+                    ${item.cn}
+                  </p>
+                  ${noteHtml}
+                </div>
+                ${renderDotIndicatorHtml()}
+              </div>
+            </div>
+          `;
+        }).join('');
+      });
+    }
+
+    /* -----------------------------------------------------------
+       6. 渲染睡前 3 分钟互动小自测
+    ----------------------------------------------------------- */
+    const quizAnswers = {};
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = QUIZ_DATA.map((q, qIndex) => {
+        const optionsHtml = q.options.map((opt, optIdx) => `
+          <button type="button"
+            data-q="${q.id}" data-opt="${optIdx}"
+            onclick="handleQuizChoice(${q.id}, ${optIdx})"
+            class="quiz-opt-${q.id} text-left px-3.5 py-2.5 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 hover:border-amber-300 text-stone-800 font-jp text-sm transition active:scale-[0.98]">
+            <span class="inline-block w-5 h-5 rounded-full bg-stone-100 text-stone-500 text-xs font-bold text-center leading-5 mr-2">${String.fromCharCode(65 + optIdx)}</span>
+            <span>${opt}</span>
+          </button>
+        `).join('');
+
+        return `
+          <div class="bg-[#FAF7F2] text-stone-800 rounded-2xl p-4 sm:p-5 border border-stone-200/80">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-amber-200">Q${qIndex + 1} · ${q.grammar}</span>
+              <span id="quiz-status-${q.id}" class="text-xs font-bold"></span>
+            </div>
+            <p class="font-jp text-sm sm:text-base font-medium text-stone-800 leading-[1.95] mb-3.5">${q.questionHtml}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              ${optionsHtml}
+            </div>
+            <div id="quiz-exp-${q.id}" class="hidden mt-3 text-xs sm:text-sm p-3 rounded-xl leading-relaxed"></div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleQuizChoice(qId, chosenIdx) {
+      const q = QUIZ_DATA.find(item => item.id === qId);
+      if (!q) return;
+
+      const isCorrect = chosenIdx === q.answer;
+      quizAnswers[qId] = isCorrect;
+
+      document.querySelectorAll(`.quiz-opt-${qId}`).forEach((btn, idx) => {
+        btn.disabled = true;
+        btn.classList.remove('hover:bg-amber-50', 'hover:border-amber-300', 'bg-white', 'border-stone-200');
+        if (idx === q.answer) {
+          btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900', 'font-bold');
+        } else if (idx === chosenIdx && !isCorrect) {
+          btn.classList.add('bg-rose-50', 'border-rose-400', 'text-rose-800');
+        } else {
+          btn.classList.add('bg-stone-50', 'border-stone-200', 'opacity-60');
+        }
+      });
+
+      const statusEl = document.getElementById(`quiz-status-${qId}`);
+      statusEl.textContent = isCorrect ? '✅ 回答正确' : '❌ 再记一下';
+      statusEl.className = `text-xs font-bold ${isCorrect ? 'text-emerald-600' : 'text-rose-600'}`;
+
+      const expEl = document.getElementById(`quiz-exp-${qId}`);
+      expEl.classList.remove('hidden');
+      expEl.className = `mt-3 text-xs sm:text-sm p-3 rounded-xl leading-relaxed border ${
+        isCorrect ? 'bg-emerald-50/80 border-emerald-200 text-emerald-900' : 'bg-rose-50/80 border-rose-200 text-rose-900'
+      }`;
+      expEl.innerHTML = `<strong>解析：</strong>${q.explanation}`;
+
+      updateQuizProgress();
+    }
+
+    function updateQuizProgress() {
+      const total = QUIZ_DATA.length;
+      const answeredCount = Object.keys(quizAnswers).length;
+      const correctCount = Object.values(quizAnswers).filter(Boolean).length;
+      const badge = document.getElementById('quiz-score-badge');
+      badge.textContent = `已完成 ${answeredCount} / ${total}（对 ${correctCount} 题）`;
+
+      const summary = document.getElementById('quiz-summary');
+      const summaryText = document.getElementById('quiz-summary-text');
+
+      if (answeredCount === total) {
+        summary.classList.remove('hidden');
+        const rate = Math.round((correctCount / total) * 100);
+        let comment = '';
+        if (correctCount === total) {
+          comment = `🎉 今日掌握度 100%（${total}/${total} 全对）！四个文法已经牢牢刻进脑海啦，安心睡个好觉吧！`;
+        } else if (correctCount >= total - 1) {
+          comment = `🌟 今日掌握度 ${rate}%（${correctCount}/${total}）！表现很棒，睡前再听一遍连播巩固错题就完美了。`;
+        } else {
+          comment = `💪 今日掌握度 ${rate}%（${correctCount}/${total}）。别着急，把上面的口诀和避坑点再看一眼，明天会更顺手！`;
+        }
+        summaryText.textContent = comment;
+      }
+    }
+
+    function resetQuiz() {
+      Object.keys(quizAnswers).forEach(k => delete quizAnswers[k]);
+      document.getElementById('quiz-score-badge').textContent = `已完成 0 / ${QUIZ_DATA.length}`;
+      document.getElementById('quiz-summary').classList.add('hidden');
+      renderQuiz();
+    }
+
+    /* -----------------------------------------------------------
+       7. 睡前磨耳朵一键连播（单卡可点 + 极简小圆点指示）
+    ----------------------------------------------------------- */
+    function renderBedtimePlaylist() {
+      const container = document.getElementById('bedtime-playlist');
+      container.innerHTML = BEDTIME_PLAYLIST.map((item, idx) => `
+        <div id="bedtime-item-${idx}" role="button" tabindex="0"
+          data-text="${escapeAttr(item.plainText)}"
+          onclick="speakCard(this)"
+          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();speakCard(this);}"
+          aria-label="点击播放睡前核心例句"
+          class="playable-card group cursor-pointer select-none rounded-xl p-3.5 bg-slate-800/70 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-300/50 flex items-start justify-between gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-bold ${item.color} mb-1">${item.label}</div>
+            <p id="bedtime-jp-${idx}" class="jp-speech-target font-jp text-sm sm:text-base leading-[2.05] text-stone-100">${item.jpHtml}</p>
+            <p class="translation-text text-xs text-slate-400 mt-1" onclick="handleTranslationClick(event, this)">${item.cn}</p>
+          </div>
+          ${renderDotIndicatorHtml()}
+        </div>
+      `).join('');
+    }
+
+    function updateBedtimePlayUI(playing) {
+      const icon = document.getElementById('bedtime-play-icon');
+      const text = document.getElementById('bedtime-play-text');
+      icon.textContent = playing ? '⏹' : '🎧';
+      text.textContent = playing ? '停止连播' : `连播今日${BEDTIME_PLAYLIST.length}句核心例句`;
+    }
+
+    function toggleBedtimePlaylist() {
+      if (isBedtimePlaying) {
+        stopAllSpeech();
+        return;
+      }
+      stopAllSpeech();
+      isBedtimePlaying = true;
+      updateBedtimePlayUI(true);
+      document.getElementById('btn-stop-all').classList.remove('hidden');
+      playBedtimeIndex(0);
+    }
+
+    function playBedtimeIndex(index) {
+      if (!isBedtimePlaying) return;
+      if (index >= BEDTIME_PLAYLIST.length) {
+        isBedtimePlaying = false;
+        updateBedtimePlayUI(false);
+        resetActiveUI();
+        showToast(`🌙 睡前 ${BEDTIME_PLAYLIST.length} 句核心例句连播完成，晚安！`);
+        return;
+      }
+
+      const cardEl = document.getElementById(`bedtime-item-${index}`);
+      if (!cardEl) return;
+      cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      const text = extractCleanJapaneseText(cardEl);
+      playUnifiedTTS({
+        text,
+        rate: 0.85,
+        cardEl,
+        onDone: (ok) => {
+          if (!isBedtimePlaying) return;
+          if (!ok) {
+            stopAllSpeech();
+            return;
+          }
+          bedtimeTimer = setTimeout(() => {
+            playBedtimeIndex(index + 1);
+          }, 680);
+        }
+      });
+    }
+
+    /* -----------------------------------------------------------
+       8. 顶部控制栏事件绑定
+    ----------------------------------------------------------- */
+    function initGlobalControls() {
+      const btnSpeed = document.getElementById('btn-speed');
+      const speedLabel = document.getElementById('speed-label');
+      btnSpeed.addEventListener('click', () => {
+        if (globalRate === 1.0) {
+          globalRate = 0.75;
+          speedLabel.textContent = '慢速 0.75x';
+          btnSpeed.classList.add('bg-amber-50', 'border-amber-300', 'text-amber-800');
+          btnSpeed.classList.remove('bg-[#FAF7F2]', 'border-stone-200', 'text-stone-700');
+          showToast('全局朗读语速已切换为：慢速 0.75x');
+        } else {
+          globalRate = 1.0;
+          speedLabel.textContent = '正常 1.0x';
+          btnSpeed.classList.remove('bg-amber-50', 'border-amber-300', 'text-amber-800');
+          btnSpeed.classList.add('bg-[#FAF7F2]', 'border-stone-200', 'text-stone-700');
+          showToast('全局朗读语速已切换为：正常 1.0x');
+        }
+        if (activeAudio && !activeAudio.paused && !isBedtimePlaying) {
+          activeAudio.playbackRate = globalRate;
+        }
+      });
+
+      const btnFurigana = document.getElementById('btn-furigana');
+      btnFurigana.addEventListener('click', () => {
+        const isHidden = document.body.classList.toggle('hide-furigana');
+        btnFurigana.setAttribute('aria-pressed', String(!isHidden));
+        btnFurigana.innerHTML = isHidden
+          ? `<span class="w-2 h-2 rounded-full bg-stone-400"></span><span>假名注音：关</span>`
+          : `<span class="w-2 h-2 rounded-full bg-indigo-500"></span><span>假名注音：开</span>`;
+        btnFurigana.classList.toggle('bg-indigo-50', !isHidden);
+        btnFurigana.classList.toggle('border-indigo-200', !isHidden);
+        btnFurigana.classList.toggle('text-indigo-700', !isHidden);
+        btnFurigana.classList.toggle('bg-white', isHidden);
+        btnFurigana.classList.toggle('border-stone-200', isHidden);
+        btnFurigana.classList.toggle('text-stone-500', isHidden);
+      });
+
+      const btnTranslation = document.getElementById('btn-translation');
+      btnTranslation.addEventListener('click', () => {
+        const isHidden = document.body.classList.toggle('hide-translation');
+        document.querySelectorAll('.translation-text.peeked').forEach(el => el.classList.remove('peeked'));
+        btnTranslation.setAttribute('aria-pressed', String(!isHidden));
+        btnTranslation.innerHTML = isHidden
+          ? `<span class="w-2 h-2 rounded-full bg-stone-400"></span><span>中文翻译：关</span>`
+          : `<span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>中文翻译：开</span>`;
+        btnTranslation.classList.toggle('bg-emerald-50', !isHidden);
+        btnTranslation.classList.toggle('border-emerald-200', !isHidden);
+        btnTranslation.classList.toggle('text-emerald-700', !isHidden);
+        btnTranslation.classList.toggle('bg-white', isHidden);
+        btnTranslation.classList.toggle('border-stone-200', isHidden);
+        btnTranslation.classList.toggle('text-stone-500', isHidden);
+        if (isHidden) {
+          showToast('已隐藏中文翻译，点击模糊区域可单独偷看');
+        }
+      });
+
+      document.getElementById('btn-stop-all').addEventListener('click', stopAllSpeech);
+
+      const modal = document.getElementById('voice-settings-modal');
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeVoiceModal();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          closeVoiceModal();
+        }
+      });
+    }
+
+    window.addEventListener('beforeunload', () => {
+      stopAllSpeech();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadVoiceSettings();
+      renderExamples();
+      renderQuiz();
+      renderBedtimePlaylist();
+      initGlobalControls();
+    });
+  </script>
+</body>
+</html>
