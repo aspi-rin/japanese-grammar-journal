@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日语文法每日手账 · 目录</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans SC"', '"Noto Sans JP"', 'Inter', 'system-ui', 'sans-serif'],
+            jp: ['"Noto Sans JP"', '"Noto Sans SC"', 'sans-serif'],
+            maru: ['"Zen Maru Gothic"', '"Noto Sans SC"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #FAF7F2;
+      background-image: radial-gradient(#E2DACD 1px, transparent 1px);
+      background-size: 22px 22px;
+      color: #2D2A26;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .journal-card {
+      box-shadow: 0 4px 20px -2px rgba(92, 76, 56, 0.07), 0 1px 3px rgba(92, 76, 56, 0.05);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased min-h-screen selection:bg-amber-200/70">
+  <header class="max-w-4xl mx-auto px-4 pt-7 pb-4 sm:pt-10">
+    <div class="bg-white/90 backdrop-blur-sm border border-stone-200/80 rounded-3xl p-6 sm:p-8 journal-card relative overflow-hidden">
+      <div class="absolute -top-2 right-8 w-20 h-6 bg-amber-200/70 rotate-3 rounded-sm pointer-events-none"></div>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/80 text-amber-800 text-xs font-medium mb-3">
+        <span>📓 日语文法每日手账</span>
+        <span class="text-amber-400">•</span>
+        <span>每日 4 个核心文法</span>
+      </div>
+      <h1 class="font-maru text-2xl sm:text-3xl font-bold text-stone-800 tracking-tight">
+        日语文法手账目录
+      </h1>
+      <p class="text-sm text-stone-500 mt-1.5">
+        按日期倒序收录每日 YouTube 文法教学手账，支持点击卡片朗读、假名/翻译开关与睡前复习。
+      </p>
+
+      <div class="mt-5 grid grid-cols-3 gap-2.5 sm:gap-3">
+        <div class="rounded-2xl bg-[#FAF7F2] border border-stone-200/80 px-3.5 py-2.5">
+          <div class="text-[11px] text-stone-500">已打卡天数</div>
+          <div class="font-maru text-xl sm:text-2xl font-bold text-stone-800 mt-0.5">2</div>
+        </div>
+        <div class="rounded-2xl bg-[#FAF7F2] border border-stone-200/80 px-3.5 py-2.5">
+          <div class="text-[11px] text-stone-500">累计文法点</div>
+          <div class="font-maru text-xl sm:text-2xl font-bold text-amber-700 mt-0.5">8</div>
+        </div>
+        <div class="rounded-2xl bg-[#FAF7F2] border border-stone-200/80 px-3.5 py-2.5">
+          <div class="text-[11px] text-stone-500">最近更新</div>
+          <div class="font-maru text-base sm:text-xl font-bold text-stone-800 mt-1">2026.11.23</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section aria-label="筛选文法" class="max-w-4xl mx-auto px-4 pt-1 pb-2">
+    <div class="relative">
+      <input id="filter-input" type="search" placeholder="搜索日期、文法（如 からには / うちに / おかげで）或中文意思…"
+        class="w-full pl-10 pr-4 py-3 rounded-2xl bg-white/95 border border-stone-200/90 text-sm text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-400/70 focus:border-amber-400 journal-card transition" />
+      <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-sm pointer-events-none">🔍</span>
+    </div>
+  </section>
+
+  <main class="max-w-4xl mx-auto px-4 py-4 pb-14 space-y-4">
+    <div id="day-list" class="space-y-4">
+      
+      <a href="./pages/%E6%97%A5%E8%AF%AD%E6%96%87%E6%B3%95-2026.11.23.html" data-search="2026.11.23 n2 / n3 核心精讲 〜からには 既然……就……（处于a这个状况，理所当然要b） 决心 · 义务 · 觉悟 〜から見て・〜から見ると・〜から見れば・〜から見たら 从a来看…… / 从a的角度（立场）来看（的话）…… 立场 · 观点 · 线索推测 〜かわりに ① 代替a（代理・代替） ② 虽然a但另一面b（反面对比） ③ 作为a的交换/回报（代偿行为） 代替 · 反面 · 交换 〜きる・〜きれる [做]完、彻底做到最后；[做]到极限；〜きれる 为可能形“[做]得完” 彻底做完 · 极限 · 断言"
+        class="day-card group block bg-white/95 hover:bg-white rounded-3xl border border-stone-200/80 hover:border-amber-300 p-5 sm:p-6 journal-card transition duration-200 hover:-translate-y-0.5">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
+          <div class="flex items-center gap-2.5">
+            <span class="font-maru text-xl sm:text-2xl font-bold text-stone-800 group-hover:text-amber-700 transition">2026.11.23</span>
+            <span class="px-2 py-0.5 rounded-full bg-amber-100 border border-amber-300/80 text-amber-900 text-[11px] font-bold">最新</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-stone-500">
+            <span>4 个文法 · 33 条例句 · 5 组对比小卡</span>
+            <span class="w-7 h-7 rounded-xl bg-stone-100 group-hover:bg-amber-100 text-stone-500 group-hover:text-amber-800 flex items-center justify-center transition">→</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          
+                <div class="rounded-2xl border bg-indigo-50 text-indigo-800 border-indigo-200/80 px-3 py-2">
+                  <div class="font-jp text-sm font-bold leading-snug">〜からには</div>
+                  <div class="text-xs opacity-80 mt-0.5 line-clamp-1">既然……就……（处于A这个状况，理所当然要B）</div>
+                </div>
+                <div class="rounded-2xl border bg-emerald-50 text-emerald-800 border-emerald-200/80 px-3 py-2">
+                  <div class="font-jp text-sm font-bold leading-snug">〜から見て・〜から見ると・〜から見れば・〜から見たら</div>
+                  <div class="text-xs opacity-80 mt-0.5 line-clamp-1">从A来看…… / 从A的角度（立场）来看（的话）……</div>
+                </div>
+                <div class="rounded-2xl border bg-orange-50 text-orange-800 border-orange-200/80 px-3 py-2">
+                  <div class="font-jp text-sm font-bold leading-snug">〜かわりに</div>
+                  <div class="text-xs opacity-80 mt-0.5 line-clamp-1">① 代替A（代理・代替） ② 虽然A但另一面B（反面对比） ③ 作为A的交换/回报（代偿行为）</div>
+                </div>
+                <div class="rounded-2xl border bg-purple-50 text-purple-800 border-purple-200/80 px-3 py-2">
+                  <div class="font-jp text-sm font-bold leading-snug">〜きる・〜きれる</div>
+                  <div class="text-xs opacity-80 mt-0.5 line-clamp-1">[做]完、彻底做到最后；[做]到极限；〜きれる 为可能形“[做]得完”</div>
+                </div>
+        </div>
+      </a>
+      <a href="./pages/%E6%97%A5%E8%AF%AD%E6%96%87%E6%B3%95-2026.11.22.html" data-search="2026.11.22 n2 / n3 核心精讲 〜うえに 不仅……而且……（a 和 b 同方向叠加） 同向叠加 · 好上加好 · 坏上加坏 〜一方だ 越来越……（持续朝单一方向变化） 单向变化 · 趋势加剧 · 辨析一方で 〜おかげで 多亏……；托……的福（正面归因） 正面归因 · 感谢 · 辨析せいで 〜うちに 趁……；在……过程中（不知不觉发生变化） 趁势行动 · 不知不觉 · 状态变化"
+        class="day-card group block bg-white/95 hover:bg-white rounded-3xl border border-stone-200/80 hover:border-amber-300 p-5 sm:p-6 journal-card transition duration-200 hover:-translate-y-0.5">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
+          <div class="flex items-center gap-2.5">
+            <span class="font-maru text-xl sm:text-2xl font-bold text-stone-800 group-hover:text-amber-700 transition">2026.11.22</span>
+            
+          </div>
+          <div class="flex items-center gap-2 text-xs text-stone-500">
+            <span>4 个文法 · 18 条例句 · 5 组对比小卡</span>
+            <span class="w-7 h-7 rounded-xl bg-stone-100 group-hover:bg-amber-100 text-stone-500 group-hover:text-amber-800 flex items-center justify-center transition">→</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          
+                <div class="rounded-2xl border bg-indigo-50 text-indigo-800 border-indigo-200/80 px-3 py-2">
+                  <div class="font-jp text-sm font-bold leading-snug">〜うえに</div>
+                  <div class="text-xs opacity-80 mt-0.5 line-clamp-1">不仅……而且……（A 和 B 同方向叠加）</div>
+                </div>
+                <div class="rounded-2xl border bg-emerald-50 text-emerald-800 border-emerald-200/80 px-3 py-2">
+                  <div class="font-jp text-sm font-bold leading-snug">〜一方だ</div>
+                  <div class="text-xs opacity-80 mt-0.5 line-clamp-1">越来越……（持续朝单一方向变化）</div>
+                </div>
+                <div class="rounded-2xl border bg-orange-50 text-orange-800 border-orange-200/80 px-3 py-2">
+                  <div class="font-jp text-sm font-bold leading-snug">〜おかげで</div>
+                  <div class="text-xs opacity-80 mt-0.5 line-clamp-1">多亏……；托……的福（正面归因）</div>
+                </div>
+                <div class="rounded-2xl border bg-purple-50 text-purple-800 border-purple-200/80 px-3 py-2">
+                  <div class="font-jp text-sm font-bold leading-snug">〜うちに</div>
+                  <div class="text-xs opacity-80 mt-0.5 line-clamp-1">趁……；在……过程中（不知不觉发生变化）</div>
+                </div>
+        </div>
+      </a>
+    </div>
+    <div id="empty-state" class="hidden text-center py-12 rounded-3xl bg-white/80 border border-dashed border-stone-300 text-sm text-stone-500">
+      没有找到匹配的文法记录，换个关键词试试吧。
+    </div>
+  </main>
+
+  <footer class="max-w-4xl mx-auto px-4 pb-10 text-center text-xs text-stone-400">
+    <p>毎日コツコツ、積み重ねが力になる。共收录 8 个文法 · 51 条例句 ✨</p>
+  </footer>
+
+  <script>
+    const input = document.getElementById('filter-input');
+    const cards = Array.from(document.querySelectorAll('.day-card'));
+    const emptyState = document.getElementById('empty-state');
+
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach((card) => {
+        const hit = !q || (card.dataset.search || '').includes(q);
+        card.classList.toggle('hidden', !hit);
+        if (hit) visible++;
+      });
+      emptyState.classList.toggle('hidden', visible > 0);
+    });
+  </script>
+</body>
+</html>

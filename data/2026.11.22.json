@@ -1,0 +1,416 @@
+{
+  "date": "2026.11.22",
+  "levelBadge": "N2 / N3 核心精讲",
+  "subtitle": "同方向叠加、单向变化、正面归因与趁势变化——完整收录原笔记例句、高频辨析、日常口语与睡前复习。",
+  "grammars": [
+    {
+      "id": "g1",
+      "theme": "indigo",
+      "pattern": "〜うえに",
+      "patternHtml": "〜うえに",
+      "meaning": "不仅……而且……（A 和 B 同方向叠加）",
+      "keywords": "同向叠加 · 好上加好 · 坏上加坏",
+      "formulaHtml": "动词普通形 ／ い形容词 ／ な形容词 ＋ <span class=\"text-indigo-700 bg-indigo-100 px-1.5 py-0.5 rounded\">な</span> ／ 名词 ＋ <span class=\"text-indigo-700 bg-indigo-100 px-1.5 py-0.5 rounded\">の</span> ＋ <span class=\"text-indigo-700 underline decoration-indigo-300 decoration-2 underline-offset-4\">うえに</span>、B",
+      "formulaTipHtml": "汉字可写作 <code class=\"bg-white/80 px-1.5 py-0.5 rounded border border-indigo-200 font-jp\">上に</code>；后项常搭配助词 <code class=\"bg-white/80 px-1.5 py-0.5 rounded border border-indigo-200 font-jp\">も</code>（如 <span class=\"font-jp\">仕事も早い</span>、<span class=\"font-jp\">風も強い</span>）强化叠加感。",
+      "analysis": [
+        {
+          "title": "1. 核心语感：同方向叠加",
+          "variant": "neutral",
+          "bodyHtml": "表示在 A 的基础上再叠加 B，用于<strong>好上加好</strong>（便宜又好吃、亲切又高效）或<strong>坏上加坏</strong>（下雨又刮风、迷路又没电），语气比单纯的「し」更强调递进累叠。"
+        },
+        {
+          "title": "2. 接续要点",
+          "variant": "neutral",
+          "bulletsHtml": [
+            "<strong>な形容词</strong>接 <code class=\"text-indigo-700 bg-indigo-50 px-1 rounded\">な＋うえに</code>（例：<span class=\"font-jp text-stone-900\">親切なうえに</span>）。",
+            "<strong>名词</strong>接 <code class=\"text-indigo-700 bg-indigo-50 px-1 rounded\">の＋うえに</code>（例：<span class=\"font-jp text-stone-900\">雨のうえに</span>）。",
+            "<strong>动词 / い形容词</strong>直接用普通形（<span class=\"font-jp text-stone-900\">安いうえに / 迷ったうえに</span>）。"
+          ]
+        },
+        {
+          "title": "3. 避坑提醒（方向必考）",
+          "variant": "warning",
+          "bodyHtml": "前后评价方向<strong>必须一致</strong>，不能一褒一贬！如果要表达“虽然便宜但很远”这类转折对比，应改用 <strong class=\"text-rose-700 font-jp\">〜のに / 〜が / 〜かわりに</strong>。"
+        }
+      ],
+      "examples": [
+        {
+          "tag": "原笔记例句",
+          "tagKind": "theme",
+          "jpHtml": "この<ruby>店<rt>みせ</rt></ruby>は<ruby>安<rt>やす</rt></ruby>い<span class=\"hl-theme\">うえに</span>、おいしい。",
+          "plainText": "この店は安いうえに、おいしい。",
+          "cn": "这家店不仅便宜，而且好吃。"
+        },
+        {
+          "tag": "原笔记例句",
+          "tagKind": "theme",
+          "jpHtml": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>親切<rt>しんせつ</rt></ruby>な<span class=\"hl-theme\">うえに</span>、<ruby>仕事<rt>しごと</rt></ruby>も<ruby>早<rt>はや</rt></ruby>い。",
+          "plainText": "彼は親切なうえに、仕事も早い。",
+          "cn": "他不仅待人亲切，工作效率也高。",
+          "note": "な形容词接续示范：親切 ＋ な ＋ うえに"
+        },
+        {
+          "tag": "日常口语 · 坏上加坏",
+          "tagKind": "daily",
+          "jpHtml": "<ruby>今日<rt>きょう</rt></ruby>は<ruby>雨<rt>あめ</rt></ruby>が<ruby>降<rt>ふ</rt></ruby>っている<span class=\"hl-theme\">うえに</span>、<ruby>風<rt>かぜ</rt></ruby>も<ruby>強<rt>つよ</rt></ruby>い。",
+          "plainText": "今日は雨が降っているうえに、風も強い。",
+          "cn": "今天不仅在下雨，风还很大。（坏上加坏）"
+        },
+        {
+          "tag": "日常口语",
+          "tagKind": "daily",
+          "jpHtml": "<ruby>道<rt>みち</rt></ruby>に<ruby>迷<rt>まよ</rt></ruby>った<span class=\"hl-theme\">うえに</span>、スマホの<ruby>充電<rt>じゅうでん</rt></ruby>も<ruby>切<rt>き</rt></ruby>れてしまった。",
+          "plainText": "道に迷ったうえに、スマホの充電も切れてしまった。",
+          "cn": "不仅迷了路，手机还没电了。"
+        }
+      ]
+    },
+    {
+      "id": "g2",
+      "theme": "emerald",
+      "pattern": "〜一方だ",
+      "patternHtml": "〜<ruby>一方<rt>いっぽう</rt></ruby>だ",
+      "meaning": "越来越……（持续朝单一方向变化）",
+      "keywords": "单向变化 · 趋势加剧 · 辨析一方で",
+      "formulaHtml": "<span class=\"text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded\">表示变化的动词辞书形</span> ＋ <span class=\"text-emerald-700 underline decoration-emerald-300 decoration-2 underline-offset-4\">一方だ</span>",
+      "formulaTipHtml": "常见搭配：<code class=\"bg-white/80 px-1.5 py-0.5 rounded border border-emerald-200 font-jp\">増える / 減る / 上がる / 下がる / 悪くなる / 忙しくなる</code> 等变化类动词。",
+      "analysis": [
+        {
+          "title": "1. 核心语感：单向趋势停不下",
+          "variant": "neutral",
+          "bodyHtml": "强调事态持续朝<strong>同一个方向</strong>不断加深、加剧（“越来越…… / 不断……”），现实中多用于<strong>消极或令人担忧的趋势</strong>（物价上涨、存款减少、人手不足等）。"
+        },
+        {
+          "title": "2. 高频辨析：〜一方だ vs 〜一方で",
+          "variant": "neutral",
+          "gridHtml": [
+            "<strong class=\"font-jp text-emerald-800\">〜一方だ</strong>：放在句尾，表<strong>持续单向变化</strong>（<span class=\"font-jp\">増える一方だ</span> 不断增加）。",
+            "<strong class=\"font-jp text-teal-800\">〜一方で</strong>：连接前后句，表<strong>两面对比 / 并存</strong>（<span class=\"font-jp\">忙しい一方で、趣味も大切にする</span>）。"
+          ]
+        },
+        {
+          "title": "3. 接续避坑",
+          "variant": "warning",
+          "bodyHtml": "前项<strong>只能接表示变化的动词辞书形</strong>，不能直接接形容词（如 <span class=\"line-through text-stone-400 font-jp\">忙しい一方だ</span> ✗）；形容词需先变为 <strong class=\"text-rose-700 font-jp\">〜くなる / 〜になる</strong>（如 <span class=\"font-jp\">忙しくなる一方だ</span> ✓）。"
+        }
+      ],
+      "phrasesTitle": "高频对比小卡（点击小卡即可发音）",
+      "phrases": [
+        {
+          "tag": "单向变化",
+          "jpHtml": "<ruby>増<rt>ふ</rt></ruby>える<span class=\"hl-theme\"><ruby>一方<rt>いっぽう</rt></ruby>だ</span>",
+          "plainText": "増える一方だ",
+          "cn": "不断增加 · 单向"
+        },
+        {
+          "tag": "两面对比",
+          "isContrast": true,
+          "jpHtml": "<ruby>忙<rt>いそが</rt></ruby>しい<span class=\"hl-contrast\"><ruby>一方<rt>いっぽう</rt></ruby>で</span>",
+          "plainText": "忙しい一方で",
+          "cn": "忙的同时 · 对比"
+        }
+      ],
+      "examples": [
+        {
+          "tag": "原笔记例句",
+          "tagKind": "theme",
+          "jpHtml": "<ruby>物価<rt>ぶっか</rt></ruby>は<ruby>上<rt>あ</rt></ruby>がる<span class=\"hl-theme\"><ruby>一方<rt>いっぽう</rt></ruby>だ</span>。",
+          "plainText": "物価は上がる一方だ。",
+          "cn": "物价不断上涨。"
+        },
+        {
+          "tag": "原笔记例句",
+          "tagKind": "theme",
+          "jpHtml": "<ruby>貯金<rt>ちょきん</rt></ruby>は<ruby>減<rt>へ</rt></ruby>る<span class=\"hl-theme\"><ruby>一方<rt>いっぽう</rt></ruby>だ</span>。",
+          "plainText": "貯金は減る一方だ。",
+          "cn": "存款越来越少。"
+        },
+        {
+          "tag": "日常口语",
+          "tagKind": "daily",
+          "jpHtml": "<ruby>最近<rt>さいきん</rt></ruby>、<ruby>仕事<rt>しごと</rt></ruby>は<ruby>忙<rt>いそが</rt></ruby>しくなる<span class=\"hl-theme\"><ruby>一方<rt>いっぽう</rt></ruby>だ</span>。",
+          "plainText": "最近、仕事は忙しくなる一方だ。",
+          "cn": "最近工作越来越忙了。"
+        },
+        {
+          "tag": "辨析 · 一方で",
+          "tagKind": "contrast",
+          "isContrast": true,
+          "jpHtml": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>仕事<rt>しごと</rt></ruby>が<ruby>忙<rt>いそが</rt></ruby>しい<span class=\"hl-contrast\"><ruby>一方<rt>いっぽう</rt></ruby>で</span>、<ruby>趣味<rt>しゅみ</rt></ruby>の<ruby>時間<rt>じかん</rt></ruby>も<ruby>大切<rt>たいせつ</rt></ruby>にしている。",
+          "plainText": "彼は仕事が忙しい一方で、趣味の時間も大切にしている。",
+          "cn": "他工作很忙，但另一方面也很珍惜兴趣时间。（辨析：一方で）"
+        }
+      ]
+    },
+    {
+      "id": "g3",
+      "theme": "orange",
+      "pattern": "〜おかげで",
+      "patternHtml": "〜おかげで",
+      "meaning": "多亏……；托……的福（正面归因）",
+      "keywords": "正面归因 · 感谢 · 辨析せいで",
+      "formulaHtml": "动词普通形 ／ い形容词 ／ な形容词 ＋ <span class=\"text-orange-700 bg-orange-100 px-1.5 py-0.5 rounded\">な</span> ／ 名词 ＋ <span class=\"text-orange-700 bg-orange-100 px-1.5 py-0.5 rounded\">の</span> ＋ <span class=\"text-orange-700 underline decoration-orange-300 decoration-2 underline-offset-4\">おかげで</span>、B（好结果）",
+      "formulaTipHtml": "结句时可用 <code class=\"bg-white/80 px-1.5 py-0.5 rounded border border-orange-200 font-jp\">〜おかげだ</code>；不确定原因时用 <code class=\"bg-white/80 px-1.5 py-0.5 rounded border border-orange-200 font-jp\">〜おかげか</code>（“或许是多亏……”）。",
+      "analysis": [
+        {
+          "title": "1. 三大因果形态秒分",
+          "variant": "neutral",
+          "bulletsHtml": [
+            "<strong class=\"font-jp text-stone-900\">〜おかげで</strong>：表示带来好结果的<strong>正面原因</strong>，带有感谢语气（“多亏……”）。",
+            "<strong class=\"font-jp text-stone-900\">〜おかげか</strong>：表示带有<strong>推测语气</strong>的正面原因（“或许是多亏……”）。",
+            "<strong class=\"font-jp text-stone-900\">〜せいで</strong>：表示带来坏结果的<strong>负面原因</strong>，带有责怪或遗憾语气（“都怪……”）。"
+          ]
+        },
+        {
+          "title": "2. 避坑提醒（好坏结果分清）",
+          "variant": "warning",
+          "bodyHtml": "后项若是迟到、生病、失败等令人不满的坏结果，<strong>必须换用</strong> <strong class=\"text-rose-700 font-jp\">〜せいで</strong>；只有刻意说反话讽刺时才会用「おかげで」接坏结果。"
+        },
+        {
+          "title": "3. 高频接续记忆",
+          "variant": "accent",
+          "bodyHtml": "<span class=\"font-jp\"><span class=\"bg-white px-2 py-0.5 rounded border border-orange-200 font-medium\">先生のおかげで</span>（名＋の）、<span class=\"bg-white px-2 py-0.5 rounded border border-orange-200 font-medium\">早く予約したおかげで</span>（动普通形）。</span>"
+        }
+      ],
+      "phrasesTitle": "高频对比小卡（点击小卡即可发音）",
+      "phrases": [
+        {
+          "tag": "正面归因",
+          "jpHtml": "<ruby>先生<rt>せんせい</rt></ruby>の<span class=\"hl-theme\">おかげで</span>",
+          "plainText": "先生のおかげで",
+          "cn": "多亏 · 正面"
+        },
+        {
+          "tag": "推测语气",
+          "isContrast": true,
+          "jpHtml": "<ruby>運動<rt>うんどう</rt></ruby>した<span class=\"hl-contrast\">おかげか</span>",
+          "plainText": "運動したおかげか",
+          "cn": "或许是多亏 · 推测"
+        },
+        {
+          "tag": "负面原因",
+          "isContrast": true,
+          "jpHtml": "<ruby>寝坊<rt>ねぼう</rt></ruby>した<span class=\"hl-contrast\">せいで</span>",
+          "plainText": "寝坊したせいで",
+          "cn": "都怪 · 负面"
+        }
+      ],
+      "examples": [
+        {
+          "tag": "原笔记例句",
+          "tagKind": "theme",
+          "jpHtml": "<ruby>先生<rt>せんせい</rt></ruby>の<span class=\"hl-theme\">おかげで</span>、<ruby>合格<rt>ごうかく</rt></ruby>できた。",
+          "plainText": "先生のおかげで、合格できた。",
+          "cn": "多亏老师，我才通过了考试。"
+        },
+        {
+          "tag": "原笔记例句",
+          "tagKind": "theme",
+          "jpHtml": "<ruby>早<rt>はや</rt></ruby>く<ruby>予約<rt>よやく</rt></ruby>した<span class=\"hl-theme\">おかげで</span>、<ruby>席<rt>せき</rt></ruby>が<ruby>取<rt>と</rt></ruby>れた。",
+          "plainText": "早く予約したおかげで、席が取れた。",
+          "cn": "幸亏提前预约，才订到了座位。"
+        },
+        {
+          "tag": "辨析 · おかげか",
+          "tagKind": "contrast",
+          "isContrast": true,
+          "jpHtml": "<ruby>毎日<rt>まいにち</rt></ruby><ruby>運動<rt>うんどう</rt></ruby>している<span class=\"hl-contrast\">おかげか</span>、<ruby>最近<rt>さいきん</rt></ruby><ruby>体調<rt>たいちょう</rt></ruby>がいい。",
+          "plainText": "毎日運動しているおかげか、最近体調がいい。",
+          "cn": "或许是多亏了每天运动，最近身体状态很好。（辨析：おかげか）"
+        },
+        {
+          "tag": "辨析 · せいで",
+          "tagKind": "contrast",
+          "isContrast": true,
+          "jpHtml": "<ruby>寝坊<rt>ねぼう</rt></ruby>した<span class=\"hl-contrast\">せいで</span>、<ruby>電車<rt>でんしゃ</rt></ruby>に<ruby>乗<rt>の</rt></ruby>り<ruby>遅<rt>おく</rt></ruby>れた。",
+          "plainText": "寝坊したせいで、電車に乗り遅れた。",
+          "cn": "都怪睡过头，没赶上电车。（辨析：せいで）"
+        },
+        {
+          "tag": "日常口语",
+          "tagKind": "daily",
+          "jpHtml": "<ruby>傘<rt>かさ</rt></ruby>を<ruby>持<rt>も</rt></ruby>って<ruby>行<rt>い</rt></ruby>った<span class=\"hl-theme\">おかげで</span>、<ruby>雨<rt>あめ</rt></ruby>に<ruby>濡<rt>ぬ</rt></ruby>れずに<ruby>済<rt>す</rt></ruby>んだ。",
+          "plainText": "傘を持って行ったおかげで、雨に濡れずに済んだ。",
+          "cn": "多亏带了伞，才没被雨淋到。"
+        }
+      ]
+    },
+    {
+      "id": "g4",
+      "theme": "purple",
+      "pattern": "〜うちに",
+      "patternHtml": "〜うちに",
+      "meaning": "趁……；在……过程中（不知不觉发生变化）",
+      "keywords": "趁势行动 · 不知不觉 · 状态变化",
+      "formulaHtml": "动词<span class=\"text-purple-700 bg-purple-100 px-1.5 py-0.5 rounded\">辞书形・ない形・ている形</span> ／ い形容词 ／ な形容词 ＋ な ／ 名词 ＋ の ＋ <span class=\"text-purple-700 underline decoration-purple-300 decoration-2 underline-offset-4\">うちに</span>、B",
+      "formulaTipHtml": "核心分两大类：<strong>趁状态变化前赶紧做</strong>（意志行动）与<strong>做着做着不知不觉变了</strong>（非意志变化）。",
+      "analysis": [
+        {
+          "title": "1. 两大核心用法对比",
+          "variant": "neutral",
+          "gridHtml": [
+            "<strong class=\"font-jp text-purple-800\">① 趁状态变化前</strong>：后项多为<strong>意志行动</strong>（趁热吃、趁没忘快记、趁年轻去旅行），强调错过时机状态就会变。",
+            "<strong class=\"font-jp text-purple-800\">② 过程中自然变化</strong>：前项多为 <span class=\"font-jp\">ている形</span>，后项为<strong>非意志变化</strong>（看着看着睡着了、听着听着懂了）。"
+          ]
+        },
+        {
+          "title": "2. 高频接续信号",
+          "variant": "neutral",
+          "bulletsHtml": [
+            "接 <code class=\"text-purple-700 bg-purple-50 px-1 rounded\">ない形＋うちに</code>：表示“趁还没……”（如 <span class=\"font-jp text-stone-900\">忘れないうちに</span>、<span class=\"font-jp text-stone-900\">暗くならないうちに</span>）。",
+            "接 <code class=\"text-purple-700 bg-purple-50 px-1 rounded\">ている形＋うちに</code>：多表示在持续做某事的过程中不知不觉发生变化（<span class=\"font-jp text-stone-900\">見ているうちに</span>、<span class=\"font-jp text-stone-900\">聞いているうちに</span>）。"
+          ]
+        },
+        {
+          "title": "3. 〜うちに vs 〜間に",
+          "variant": "accent",
+          "bodyHtml": "<strong class=\"font-jp\">〜間に</strong> 仅客观说明在某时间段内发生；<strong class=\"font-jp\">〜うちに</strong> 带有“状态随时会变，必须抓紧时机”或“伴随过程自然演变”的语感。"
+        }
+      ],
+      "examples": [
+        {
+          "tag": "原笔记例句",
+          "tagKind": "theme",
+          "jpHtml": "<ruby>熱<rt>あつ</rt></ruby>い<span class=\"hl-theme\">うちに</span>、<ruby>食<rt>た</rt></ruby>べてね。",
+          "plainText": "熱いうちに、食べてね。",
+          "cn": "趁热吃哦。"
+        },
+        {
+          "tag": "原笔记例句",
+          "tagKind": "theme",
+          "jpHtml": "<ruby>忘<rt>わす</rt></ruby>れない<span class=\"hl-theme\">うちに</span>、メモしよう。",
+          "plainText": "忘れないうちに、メモしよう。",
+          "cn": "趁还没忘，赶紧记下来。",
+          "note": "高频句型：动词ない形 ＋ うちに（趁还没…）"
+        },
+        {
+          "tag": "原笔记例句",
+          "tagKind": "theme",
+          "jpHtml": "<ruby>動画<rt>どうが</rt></ruby>を<ruby>見<rt>み</rt></ruby>ている<span class=\"hl-theme\">うちに</span>、<ruby>寝<rt>ね</rt></ruby>てしまった。",
+          "plainText": "動画を見ているうちに、寝てしまった。",
+          "cn": "看着看着视频，不知不觉睡着了。"
+        },
+        {
+          "tag": "日常口语 · 趁状态前",
+          "tagKind": "daily",
+          "jpHtml": "<ruby>若<rt>わか</rt></ruby>い<span class=\"hl-theme\">うちに</span>、いろいろな<ruby>国<rt>くに</rt></ruby>へ<ruby>旅行<rt>りょこう</rt></ruby>したい。",
+          "plainText": "若いうちに、いろいろな国へ旅行したい。",
+          "cn": "想趁年轻去各个国家旅行。"
+        },
+        {
+          "tag": "日常口语 · 过程中变化",
+          "tagKind": "daily",
+          "jpHtml": "<ruby>毎日<rt>まいにち</rt></ruby><ruby>聞<rt>き</rt></ruby>いている<span class=\"hl-theme\">うちに</span>、<ruby>少<rt>すこ</rt></ruby>しずつ<ruby>分<rt>わ</rt></ruby>かるようになった。",
+          "plainText": "毎日聞いているうちに、少しずつ分かるようになった。",
+          "cn": "每天听着听着，不知不觉就听懂了一点。"
+        }
+      ]
+    }
+  ],
+  "bedtime": {
+    "mnemonics": [
+      {
+        "title": "① 〜うえに",
+        "text": "好上加好、坏上加坏，同向叠加不转折。",
+        "anchorHtml": "な形用 <strong class=\"font-jp text-indigo-700\">な</strong>，名词用 <strong class=\"font-jp text-indigo-700\">の</strong>（親切なうえに）"
+      },
+      {
+        "title": "② 〜一方だ",
+        "text": "单向趋势停不下，两面对比用「一方で」。",
+        "anchorHtml": "只接变化动词辞书形（<strong class=\"font-jp text-emerald-700\">上がる一方だ / 忙しくなる一方だ</strong>）"
+      },
+      {
+        "title": "③ 〜おかげで",
+        "text": "好事归功多亏它，坏事背锅换「せいで」。",
+        "anchorHtml": "推测语气用 <strong class=\"font-jp text-orange-700\">おかげか</strong>（運動したおかげか）"
+      },
+      {
+        "title": "④ 〜うちに",
+        "text": "趁没变化赶紧做，做着做着自然变。",
+        "anchorHtml": "<strong class=\"font-jp text-purple-700\">ない形＋うちに</strong> 表“趁还没…”（忘れないうちに）"
+      }
+    ],
+    "table": [
+      {
+        "pattern": "〜うえに",
+        "connection": "动普 / い形 / な形＋な / 名＋の",
+        "pitfall": "前后评价必须同向，不能一褒一贬"
+      },
+      {
+        "pattern": "〜一方だ",
+        "connection": "变化动词辞书形 ＋ 一方だ",
+        "pitfall": "只接表示变化的动词（増える/減る/上がる等），区别于对比的「一方で」"
+      },
+      {
+        "pattern": "〜おかげで",
+        "connection": "动普 / い形 / な形＋な / 名＋の",
+        "pitfall": "正面归因用おかげで；推测用「おかげか」；负面原因必须换「せいで」"
+      },
+      {
+        "pattern": "〜うちに",
+        "connection": "动辞书・ない・ている形 / い形 / な形＋な / 名＋の",
+        "pitfall": "接「ない形」表“趁还没…”；接「ている形」多表过程中不知不觉变化"
+      }
+    ],
+    "quiz": [
+      {
+        "id": 1,
+        "grammar": "① 〜うえに",
+        "questionHtml": "このアパートは<ruby>駅<rt>えき</rt></ruby>から<ruby>近<rt>ちか</rt></ruby>い（　　　）、<ruby>家賃<rt>やちん</rt></ruby>も<ruby>安<rt>やす</rt></ruby>い。",
+        "options": ["うえに", "うちに", "一方だ", "せいで"],
+        "answer": 0,
+        "explanation": "离车站近 + 房租便宜，属于“好上加好”的同方向叠加，选「うえに」。"
+      },
+      {
+        "id": 2,
+        "grammar": "② 〜一方だ",
+        "questionHtml": "<ruby>最近<rt>さいきん</rt></ruby>、<ruby>電気代<rt>でんきだい</rt></ruby>は<ruby>高<rt>たか</rt></ruby>くなる（　　　）。",
+        "options": ["おかげで", "一方だ", "一方で", "うえに"],
+        "answer": 1,
+        "explanation": "变化动词辞书形（高くなる）＋「一方だ」，表示单向持续上涨；「一方で」用于两面对比。"
+      },
+      {
+        "id": 3,
+        "grammar": "③ 〜おかげで",
+        "questionHtml": "<ruby>友達<rt>ともだち</rt></ruby>が<ruby>手伝<rt>てつだ</rt></ruby>ってくれた（　　　）、<ruby>引<rt>ひ</rt></ruby>っ<ruby>越<rt>こ</rt></ruby>しが<ruby>早<rt>はや</rt></ruby>く<ruby>終<rt>お</rt></ruby>わった。",
+        "options": ["せいで", "うちに", "おかげで", "一方だ"],
+        "answer": 2,
+        "explanation": "后项“搬家很快就结束了”是令人感谢的正面结果，选正面归因的「おかげで」。"
+      },
+      {
+        "id": 4,
+        "grammar": "④ 〜うちに",
+        "questionHtml": "<ruby>暗<rt>くら</rt></ruby>くならない（　　　）、<ruby>早<rt>はや</rt></ruby>く<ruby>家<rt>いえ</rt></ruby>へ<ruby>帰<rt>かえ</rt></ruby>ろう。",
+        "options": ["うえに", "おかげで", "一方だ", "うちに"],
+        "answer": 3,
+        "explanation": "ない形＋「うちに」表示“趁天还没黑之前赶紧回家”，符合状态变化前采取行动的用法。"
+      }
+    ],
+    "playlist": [
+      {
+        "label": "① 〜うえに",
+        "jpHtml": "この<ruby>店<rt>みせ</rt></ruby>は<ruby>安<rt>やす</rt></ruby>い<span class=\"hl-theme\">うえに</span>、おいしい。",
+        "plainText": "この店は安いうえに、おいしい。",
+        "cn": "这家店不仅便宜，而且好吃。"
+      },
+      {
+        "label": "② 〜一方だ",
+        "jpHtml": "<ruby>物価<rt>ぶっか</rt></ruby>は<ruby>上<rt>あ</rt></ruby>がる<span class=\"hl-theme\"><ruby>一方<rt>いっぽう</rt></ruby>だ</span>。",
+        "plainText": "物価は上がる一方だ。",
+        "cn": "物价不断上涨。"
+      },
+      {
+        "label": "③ 〜おかげで",
+        "jpHtml": "<ruby>早<rt>はや</rt></ruby>く<ruby>予約<rt>よやく</rt></ruby>した<span class=\"hl-theme\">おかげで</span>、<ruby>席<rt>せき</rt></ruby>が<ruby>取<rt>と</rt></ruby>れた。",
+        "plainText": "早く予約したおかげで、席が取れた。",
+        "cn": "幸亏提前预约，才订到了座位。"
+      },
+      {
+        "label": "④ 〜うちに",
+        "jpHtml": "<ruby>忘<rt>わす</rt></ruby>れない<span class=\"hl-theme\">うちに</span>、メモしよう。",
+        "plainText": "忘れないうちに、メモしよう。",
+        "cn": "趁还没忘，赶紧记下来。"
+      }
+    ]
+  }
+}
